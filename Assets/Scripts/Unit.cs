@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+
+
     public UnitHandler unitHandler;
     public TimeManager timeManager;
     public GameManager gameManager;
@@ -13,6 +15,9 @@ public class Unit : MonoBehaviour
     public int attackDamage;
     public float attackSpeed;
     public float lastAttack = 0;
+    public float turnSpeed;
+
+   
 
     // Start is called before the first frame update
     public virtual void Start() 
@@ -25,11 +30,17 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        
+        if (target != null)
+        {
+            Vector3 direction = transform.position- target.transform.position;
+            Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.deltaTime);
+        }
     }
 
     public virtual void AquireTarget()
     {
+        
 
     }
 
