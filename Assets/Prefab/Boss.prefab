@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3006149295275476391}
+  - component: {fileID: -7338622027197634445}
   - component: {fileID: 3006149295275476388}
   - component: {fileID: 3006149295275476389}
   - component: {fileID: 3006149295275476386}
-  - component: {fileID: -7338622027197634445}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -35,6 +35,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7338622027197634445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3006149295275476387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d77ebe6aa1333b2429616e291d059b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitHandler: {fileID: 0}
+  timeManager: {fileID: 0}
+  target: {fileID: 0}
+  hitPoints: 1000
+  attackDamage: 10
+  attackSpeed: 1
+  lastAttack: 0
 --- !u!33 &3006149295275476388
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -98,17 +117,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7338622027197634445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3006149295275476387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77ebe6aa1333b2429616e291d059b69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitHandler: {fileID: 0}
-  target: {fileID: 0}

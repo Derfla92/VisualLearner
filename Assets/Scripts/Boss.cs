@@ -10,19 +10,41 @@ public class Boss : Unit
     public override void Start()
     {
         base.Start();
-        AquireTarget();
     }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
+        if (target == null)
+        {
+            AquireTarget();
+        }
+        else
+        {
+            if (timeManager.currentTime > lastAttack + attackSpeed)
+            {
+                Attack();
+            }
+        }
     }
 
     public override void AquireTarget()
     {
         base.AquireTarget();
-        int random = Random.Range(0, unitHandler.unitList.Count-1);
-        target = unitHandler.unitList[random];
+
+        if (unitHandler.unitList.Count > 0)
+        {
+            int random = Random.Range(0, unitHandler.unitList.Count - 1);
+            target = unitHandler.unitList[random];
+        }
+    }
+
+    public override void Attack()
+    {
+        base.Attack();
+        
+        
+
     }
 }

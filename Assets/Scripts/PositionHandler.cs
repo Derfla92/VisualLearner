@@ -11,12 +11,9 @@ public class PositionHandler : MonoBehaviour
     public int spread = 1;
     private GameObject positions;
 
-    public bool locationsMade = false;
-
     private void Awake()
     {
         DisplayGrid();
-        locationsMade = true;
         
     }
     // Start is called before the first frame update

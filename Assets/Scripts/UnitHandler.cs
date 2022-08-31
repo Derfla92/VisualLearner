@@ -11,15 +11,18 @@ public class UnitHandler : MonoBehaviour
    
     public List<GameObject> prefabs = new List<GameObject>();
 
+    public int numberOfHeroes;
+
     private void Awake()
     {
         
-        SpawnUnits(9);
+        
         
     }
     // Start is called before the first frame update
     void Start()
     {
+        SpawnUnits(numberOfHeroes);
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class UnitHandler : MonoBehaviour
         
     }
 
-    private void SpawnUnits(int numberOfSpawns)
+    public void SpawnUnits(int numberOfSpawns)
     {
         for (int i = 0; i < numberOfSpawns; i++)
         {
@@ -37,4 +40,6 @@ public class UnitHandler : MonoBehaviour
             unitList.Add(spawn.GetComponent<Unit>());
         }
     }
+
+    
 }
