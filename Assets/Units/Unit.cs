@@ -10,17 +10,16 @@ public class Unit : MonoBehaviour
     public TimeManager timeManager;
     public GameManager gameManager;
     public Unit target;
-    [SerializeField]
-    private int hitPoints;
+    public int hitPoints;
     public int attackDamage;
     public float attackSpeed;
     public float lastAttack = 0;
     public float turnSpeed;
 
-   
+
 
     // Start is called before the first frame update
-    public virtual void Start() 
+    public virtual void Start()
     {
         unitHandler = GameObject.Find("UnitHandler").GetComponent<UnitHandler>();
         timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
@@ -32,23 +31,31 @@ public class Unit : MonoBehaviour
     {
         if (target != null)
         {
-            Vector3 direction = transform.position- target.transform.position;
-            Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 1 * Time.deltaTime);
+
+            Vector3 direction = target.transform.position - transform.position;
+            Debug.DrawRay(transform.position, direction, Color.red);
+            //Quaternion toRotation = Quaternion.FromToRotation(transform.position, direction);
+            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, (turnSpeed / 1) * Time.deltaTime);
         }
     }
 
     public virtual void AquireTarget()
     {
-        
+
 
     }
 
     public virtual void Attack()
     {
+        Animator animator = GetComponent<Animator>();
+
+        animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
+
         target.TakeDamage(attackDamage);
         lastAttack = timeManager.currentTime;
-        if(target.hitPoints < 0)
+        if (target.hitPoints < 0)
         {
             target = null;
         }
@@ -57,7 +64,7 @@ public class Unit : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hitPoints -= damage;
-        if(hitPoints < 0)
+        if (hitPoints <= 0)
         {
             Die();
         }

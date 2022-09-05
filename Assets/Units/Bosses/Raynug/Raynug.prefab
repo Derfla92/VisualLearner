@@ -1217,7 +1217,7 @@ GameObject:
   - component: {fileID: 9586004}
   - component: {fileID: 4890945351912253625}
   m_Layer: 0
-  m_Name: Red
+  m_Name: Raynug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

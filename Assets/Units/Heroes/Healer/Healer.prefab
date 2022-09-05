@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7942021547164775457}
-  - component: {fileID: 2568552364753549942}
   - component: {fileID: 7942021547164775646}
   - component: {fileID: 7942021547164775647}
   - component: {fileID: 7942021547164775644}
   - component: {fileID: 7942021547164775645}
+  - component: {fileID: 8562551782767021393}
   m_Layer: 0
-  m_Name: Hero
+  m_Name: Healer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,26 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2568552364753549942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7942021547164775642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f671e35da4cc1e41b45264057bb07fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitHandler: {fileID: 0}
-  timeManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  target: {fileID: 0}
-  hitPoints: 100
-  attackDamage: 10
-  attackSpeed: 1.5
-  lastAttack: 0
 --- !u!33 &7942021547164775646
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -84,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 814b821c45739114bad14e909622e542, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,3 +116,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &8562551782767021393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942021547164775642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55cd6f10ec6bb3b459b5bd6826a5e215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitHandler: {fileID: 0}
+  timeManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  target: {fileID: 0}
+  hitPoints: 100
+  attackDamage: 5
+  attackSpeed: 1.5
+  lastAttack: 0
+  turnSpeed: 1.5
+  healingPower: 50
+  coolDown: 1.5
+  lastHeal: 0

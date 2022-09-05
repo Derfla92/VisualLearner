@@ -8,38 +8,55 @@ public class UnitHandler : MonoBehaviour
 {
 
     public List<Unit> unitList = new List<Unit>();
-   
-    public List<GameObject> prefabs = new List<GameObject>();
 
-    public int numberOfHeroes;
+    public GameObject tankPrefab;
+    public GameObject healerPrefab;
+    public GameObject damageDealerPrefab;
+
+    public int tanks;
+    public int healers;
+    public int damageDealers;
 
     private void Awake()
     {
-        
-        
-        
+
+
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        SpawnUnits(numberOfHeroes);
+        SpawnUnits(tanks, healers, damageDealers);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void SpawnUnits(int numberOfSpawns)
+    public void SpawnUnits(int tanks, int healers, int damageDealers)
     {
-        for (int i = 0; i < numberOfSpawns; i++)
+        int total = tanks + healers + damageDealers;
+        for (int i = 0; i < total; i++)
         {
-        Transform spawn = GameObject.Instantiate(prefabs[0]).GetComponent<Transform>();
+            Transform spawn;
+            if (i < tanks)
+            {
+                spawn = GameObject.Instantiate(tankPrefab).GetComponent<Transform>();
+            }
+            else if (i >= tanks && i < tanks + healers)
+            {
+                spawn = GameObject.Instantiate(healerPrefab).GetComponent<Transform>();
+            }
+            else
+            {
+                spawn = GameObject.Instantiate(damageDealerPrefab).GetComponent<Transform>();
+            }
             spawn.position = GetComponent<PositionHandler>().mPositions[i];
             unitList.Add(spawn.GetComponent<Unit>());
         }
     }
 
-    
+
 }

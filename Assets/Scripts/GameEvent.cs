@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attacks : MonoBehaviour
+public class GameEvent : MonoBehaviour
 {
 
+    public int time;
 
     // Start is called before the first frame update
     void Start()
@@ -17,4 +18,6 @@ public class Attacks : MonoBehaviour
     {
         
     }
+
+
 }

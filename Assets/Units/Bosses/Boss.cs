@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Boss : Unit
 {
-    private Dictionary<int, string> attacks = new Dictionary<int, string>();
 
     // Start is called before the first frame update
     public override void Start()
     {
-        attacks.Add(0, "Attack");
-        attacks.Add(1, "Tail");
         base.Start();
     }
 
@@ -38,20 +35,22 @@ public class Boss : Unit
 
         if (unitHandler.unitList.Count > 0)
         {
-            int random = Random.Range(0, unitHandler.unitList.Count - 1);
-            target = unitHandler.unitList[random];
+            if (unitHandler.unitList.Find(x => x.GetType() == typeof(Tank)) != null)
+            {
+                target = unitHandler.unitList.Find(x => x.GetType() == typeof(Tank));
+            }
+            else
+            {
+                int random = Random.Range(0, unitHandler.unitList.Count - 1);
+                target = unitHandler.unitList[random];
+
+            }
             base.AquireTarget();
         }
     }
 
     public override void Attack()
     {
-        int random = Random.Range(0, 2);
-        GetComponent<Animator>().SetTrigger(attacks[random]);
         base.Attack();
-
-
-
-
     }
 }

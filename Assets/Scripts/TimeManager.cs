@@ -11,7 +11,7 @@ public class TimeManager : MonoBehaviour
     public GameObject BtnStart;
     public GameObject BtnStop;
 
-    private bool run = false;
+    public bool run = false;
     public float currentTime = 0;
     public float timeMultiplier = 1;
     // Start is called before the first frame update
