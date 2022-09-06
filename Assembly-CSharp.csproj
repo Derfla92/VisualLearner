@@ -66,23 +66,23 @@
     <Compile Include="Assets\Scripts\EventView.cs" />
     <Compile Include="Assets\Scripts\MechanicsHandler.cs" />
     <Compile Include="Assets\Units\Position.cs" />
+    <Compile Include="Assets\Units\Heroes\Healer\Healer.cs" />
+    <Compile Include="Assets\Units\Bosses\Raynug\Attacks\BasicAttack.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
+    <Compile Include="Assets\Units\Heroes\DamageDealer\DamageDealer.cs" />
     <Compile Include="Assets\Units\Bosses\Raynug\Attacks\ClawAttack.cs" />
     <Compile Include="Assets\Units\Attacks\MeleeAttacks\MeleeAttack.cs" />
     <Compile Include="Assets\Scripts\UnitHandler.cs" />
     <Compile Include="Assets\Units\Enemies\Enemy.cs" />
     <Compile Include="Assets\Units\Bosses\Boss.cs" />
     <Compile Include="Assets\Units\Attacks\RangedAttack\RangedAttack.cs" />
+    <Compile Include="Assets\Units\Heroes\Tank\Tank.cs" />
     <Compile Include="Assets\Scripts\UiEvent.cs" />
     <Compile Include="Assets\Scripts\AutoResize.cs" />
     <Compile Include="Assets\Units\Bosses\Raynug\Spells\FireBreath.cs" />
     <Compile Include="Assets\Scripts\PositionHandler.cs" />
     <Compile Include="Assets\Scripts\TimeManager.cs" />
     <Compile Include="Assets\Units\Bosses\Raynug\Raynug.cs" />
-    <Compile Include="Assets\Units\Bosses\Raynug\Attacks\BasicAttack.cs" />
-    <Compile Include="Assets\Units\Heroes\Tank\Tank.cs" />
-    <Compile Include="Assets\Units\Heroes\Healer\Healer.cs" />
-    <Compile Include="Assets\Units\Heroes\DamageDealer\DamageDealer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
