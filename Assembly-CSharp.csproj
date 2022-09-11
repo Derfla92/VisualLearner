@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\PositionHandler.cs" />
     <Compile Include="Assets\Scripts\TimeManager.cs" />
     <Compile Include="Assets\Units\Bosses\Raynug\Raynug.cs" />
+    <Compile Include="Assets\Scripts\Mousehandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

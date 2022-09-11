@@ -26,7 +26,7 @@ public class UnitHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnUnits(tanks, healers, damageDealers);
+        
     }
 
     // Update is called once per frame
@@ -35,8 +35,13 @@ public class UnitHandler : MonoBehaviour
 
     }
 
-    public void SpawnUnits(int tanks, int healers, int damageDealers)
+    public void SpawnUnits()
     {
+        foreach (Unit unit in unitList)
+        {
+            Destroy(unit.gameObject);
+        }
+        unitList.Clear();
         int total = tanks + healers + damageDealers;
         for (int i = 0; i < total; i++)
         {
