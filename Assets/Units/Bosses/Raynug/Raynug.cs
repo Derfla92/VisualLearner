@@ -18,6 +18,12 @@ public class Raynug : Boss
         base.Update();
     }
 
+    public override void Attack()
+    {
+        base.Attack();
+    }
 
-    
+
+
+
 }

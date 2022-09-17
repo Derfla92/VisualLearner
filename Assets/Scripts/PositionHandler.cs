@@ -8,6 +8,7 @@ public class PositionHandler : MonoBehaviour
 
     public List<Vector3> mPositions = new List<Vector3>();
     private GameObject positions;
+    public bool showPositions = false;
 
     private void Awake()
     {
@@ -37,20 +38,25 @@ public class PositionHandler : MonoBehaviour
 
             for (int j = 0; j < 5; j++)
             {
-                GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                Destroy(gameObject.GetComponent<SphereCollider>());
-                gameObject.transform.SetParent(positions.transform, false);
-                gameObject.transform.position = new Vector3(-1 * 6f, 1, -1 * 12f) + new Vector3(j * 3, 0, i * -3);
+
+                    GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    Destroy(gameObject.GetComponent<SphereCollider>());
+                    gameObject.transform.SetParent(positions.transform, false);
+                    gameObject.transform.position = new Vector3(-1 * 6f, 5, -1 * 1f) + new Vector3(j * 3, 0, i * -3);
+
                 mPositions.Add(gameObject.transform.position);
+                
 
-    }
 
+
+            }
         }
+        if (!showPositions) Destroy(positions);
     }
 
     public void FanGrid()
     {
-        if(GameObject.Find("Positions"))
+        if (GameObject.Find("Positions"))
         {
             Destroy(GameObject.Find("Positions"));
         }
@@ -70,12 +76,15 @@ public class PositionHandler : MonoBehaviour
                 angle = 45 - 90 / (row) * x;
             }
             Vector3 startPos = Vector3.up * 5;
-            GameObject newSpawn = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            newSpawn.transform.position = startPos;
-            Destroy(newSpawn.GetComponent<SphereCollider>());
-            newSpawn.transform.SetParent(positions.transform, false);
-            newSpawn.transform.Rotate(Quaternion.Euler(0, angle, 0).eulerAngles);
-            newSpawn.transform.Translate(new Vector3(0, 0, -3 * (row)), Space.Self);
+            
+                GameObject newSpawn = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                newSpawn.transform.position = startPos;
+                Destroy(newSpawn.GetComponent<SphereCollider>());
+                newSpawn.transform.SetParent(positions.transform, false);
+                newSpawn.transform.Rotate(Quaternion.Euler(0, angle, 0).eulerAngles);
+                newSpawn.transform.Translate(new Vector3(0, 0, -3 * (row)), Space.Self);
+            
+
             mPositions.Add(newSpawn.transform.position);
 
             x++;
@@ -86,6 +95,7 @@ public class PositionHandler : MonoBehaviour
                 x = 0;
             }
         }
+        if (!showPositions) Destroy(positions);
 
     }
 
@@ -94,7 +104,7 @@ public class PositionHandler : MonoBehaviour
         GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         Destroy(gameObject.GetComponent<SphereCollider>());
         gameObject.transform.SetParent(positions.transform, false);
-        mPositions.Add(new Vector3(-1 * 2f , 1, -1 * 2f) + new Vector3(x*5, 0, y*5));
+        mPositions.Add(new Vector3(-1 * 2f, 1, -1 * 2f) + new Vector3(x * 5, 0, y * 5));
         gameObject.transform.position = mPositions[x + y];
         return gameObject;
     }

@@ -11,22 +11,27 @@ public class Boss : Unit
         base.Start();
     }
 
+    public override void Awake()
+    {
+        role = Role.Boss;
+    }
+
     // Update is called once per frame
     public override void Update()
     {
-
-        if (target == null)
+        if (timeManager.run)
         {
-            AquireTarget();
-        }
-        else
-        {
-            if (timeManager.currentTime > lastAttack + attackSpeed)
+            if (target == null)
             {
+                AquireTarget();
+            }
+            else
+            {
+
                 Attack();
             }
-            base.Update();
         }
+        base.Update();
     }
 
     public override void AquireTarget()
@@ -45,12 +50,23 @@ public class Boss : Unit
                 target = unitHandler.unitList[random];
 
             }
-            base.AquireTarget();
         }
     }
 
     public override void Attack()
     {
-        base.Attack();
+        if (timeManager.currentTime > lastAttack + attackSpeed)
+        {
+            Animator animator = GetComponent<Animator>();
+
+            animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
+
+            target.GetComponent<Hero>().TakeDamage(attackDamage);
+            lastAttack = timeManager.currentTime;
+            if (target.hitPoints < 0)
+            {
+                target = null;
+            }
+        }
     }
 }

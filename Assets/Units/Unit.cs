@@ -10,13 +10,21 @@ public class Unit : MonoBehaviour
     public TimeManager timeManager;
     public GameManager gameManager;
     public Unit target;
+    public Role role;
+    public int maxHitPoints;
     public int hitPoints;
     public int attackDamage;
     public float attackSpeed;
     public float lastAttack = 0;
     public float turnSpeed;
 
-
+    public enum Role
+    {
+        Tank,
+        Healer,
+        DamageDealer,
+        Boss
+    }
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -26,18 +34,26 @@ public class Unit : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
+    public virtual void Awake()
+    {
+
+    }
+
     // Update is called once per frame
     public virtual void Update()
     {
-        if (target != null)
+        if (timeManager.run)
         {
+            if (target != null)
+            {
 
-            Vector3 direction = target.transform.position - transform.position;
-            Debug.DrawRay(transform.position, direction, Color.red);
-            //Quaternion toRotation = Quaternion.FromToRotation(transform.position, direction);
-            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+                Vector3 direction = target.transform.position - transform.position;
+                Debug.DrawRay(transform.position, direction, Color.red);
+                //Quaternion toRotation = Quaternion.FromToRotation(transform.position, direction);
+                Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, (turnSpeed / 1) * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, (turnSpeed / 1) * Time.deltaTime);
+            }
         }
     }
 
@@ -49,9 +65,13 @@ public class Unit : MonoBehaviour
 
     public virtual void Attack()
     {
-        Animator animator = GetComponent<Animator>();
+        if (TryGetComponent<Animator>(out Animator animator))
+        {
 
-        animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
+            animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
+
+        }
+
 
         target.TakeDamage(attackDamage);
         lastAttack = timeManager.currentTime;
@@ -61,14 +81,17 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         hitPoints -= damage;
+
         if (hitPoints <= 0)
         {
             Die();
         }
     }
+
+
 
     public void Die()
     {
