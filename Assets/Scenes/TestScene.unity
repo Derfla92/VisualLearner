@@ -1880,14 +1880,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab3733e5bcc924aba15ad1b607a99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitList:
+  heroes: []
+  enemies:
   - {fileID: 549892780}
-  tankPrefab: {fileID: 7942021547164775642, guid: 75d3c1e44660ec74a85efd7a2cc99338, type: 3}
-  healerPrefab: {fileID: 7942021547164775642, guid: 99e91f03a16c3b14aaaf87334f452c3f, type: 3}
-  damageDealerPrefab: {fileID: 7942021547164775642, guid: 53dd5769c1d6509429c78f75d677681e, type: 3}
+  tankPrefab: {fileID: 8059006170336702729, guid: b3704a02ec2e4384aa188b57803f53de, type: 3}
+  healerPrefab: {fileID: 8059006170336702729, guid: 1f273eb3f6872564f955d95a5664f198, type: 3}
+  damageDealerPrefab: {fileID: 8059006170336702729, guid: a76f777bf44bc704ea0ed490b210bc3b, type: 3}
   tanks: 1
-  healers: 2
-  damageDealers: 22
+  healers: 1
+  damageDealers: 23
   infoPane: {fileID: 575698669}
   dropdown: {fileID: 34155595}
   selectedUnit: {fileID: 0}

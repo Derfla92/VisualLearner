@@ -22,13 +22,10 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (unitHandler.unitList.Count < 1)
-        {
-            Debug.Log("Game Over!");
-            summaryPanel.SetActive(true);
-            summaryPanel.GetComponentInChildren<Text>().text = "Time: " + ((int)timeManager.currentTime).ToString();
-            timeManager.StopTime();
-        }
+        Debug.Log("Game Over!");
+        summaryPanel.SetActive(true);
+        summaryPanel.GetComponentInChildren<Text>().text = "Time: " + ((int)timeManager.currentTime).ToString();
+        timeManager.StopTime();
     }
 
     public void ResetRound()

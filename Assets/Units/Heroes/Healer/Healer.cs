@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Healer : Hero
@@ -8,13 +10,13 @@ public class Healer : Hero
     public int healingPower;
     public float coolDown;
     public float lastHeal;
-    
+
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
-        
+
     }
 
     public override void Awake()
@@ -25,16 +27,19 @@ public class Healer : Hero
     // Update is called once per frame
     public override void Update()
     {
+        base.Update();
         if (timeManager.run)
         {
-            base.Update();
             if (lastHeal + coolDown < timeManager.currentTime)
             {
-                if (target == null)
+                FindHealingTarget();
+                if (target != null)
                 {
-                    FindHealingTarget();
-                    Heal();
-                    target = null;
+                    if (target.role != Unit.Role.Boss)
+                    {
+                        Heal();
+                        target = null;
+                    }
                 }
             }
         }
@@ -44,6 +49,21 @@ public class Healer : Hero
     {
         if (target != null)
         {
+            Animator animator = GetComponent<Animator>();
+            animator.Play("Heal");
+            Debug.Log("Healing: " + target.name);
+
+            List<Spell> spells = GetComponents<Spell>().ToList();
+
+            Spell spell = spells.Find(x => x.spellName == "Heal");
+
+            Transform heal = Instantiate(spell.prefab).transform;
+
+            spell.instantiatedObject.Add(heal.gameObject);
+            heal.position = target.transform.position;
+            
+            
+
             target.hitPoints += healingPower;
             target.GetComponent<Hero>().UpdateHealthBar();
             lastHeal = timeManager.currentTime;
@@ -53,9 +73,10 @@ public class Healer : Hero
 
     public void FindHealingTarget()
     {
-        List<Unit> healableTarget = unitHandler.unitList.FindAll(x => x.hitPoints < 70);
+        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints < x.maxHitPoints - healingPower);
         if (healableTarget.Count > 0)
         {
+            Debug.Log("Found healable target");
             int rand = Random.Range(0, healableTarget.Count - 1);
             target = healableTarget[rand];
         }

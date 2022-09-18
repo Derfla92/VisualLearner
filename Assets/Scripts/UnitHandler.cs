@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class UnitHandler : MonoBehaviour
 {
 
-    public List<Unit> unitList = new List<Unit>();
+    public List<Hero> heroes = new List<Hero>();
+    public List<Enemy> enemies = new List<Enemy>();
 
     public GameObject tankPrefab;
     public GameObject healerPrefab;
@@ -43,12 +44,11 @@ public class UnitHandler : MonoBehaviour
 
     public void SpawnUnits()
     {
-        foreach (Unit unit in unitList)
+        foreach (Unit unit in heroes)
         {
-            if(!unit.TryGetComponent<Boss>(out Boss boss))
             Destroy(unit.gameObject);
         }
-        unitList.Clear();
+        heroes.Clear();
         int total = tanks + healers + damageDealers;
         for (int i = 0; i < total; i++)
         {
@@ -67,7 +67,7 @@ public class UnitHandler : MonoBehaviour
             }
             spawn.position = GetComponent<PositionHandler>().mPositions[i];
             spawn.parent = GameObject.Find("Heroes").transform;
-            unitList.Add(spawn.GetComponent<Unit>());
+            heroes.Add(spawn.GetComponent<Hero>());
 
         }
     }

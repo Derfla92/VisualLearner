@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\DropdownRoleChange.cs" />
     <Compile Include="Assets\Scripts\GameEvent.cs" />
     <Compile Include="Assets\Units\Attacks\Spells\Spell.cs" />
     <Compile Include="Assets\Units\Heroes\Hero.cs" />
@@ -67,24 +68,53 @@
     <Compile Include="Assets\Scripts\MechanicsHandler.cs" />
     <Compile Include="Assets\Units\Position.cs" />
     <Compile Include="Assets\Units\Heroes\Healer\Healer.cs" />
-    <Compile Include="Assets\Units\Bosses\Raynug\Attacks\BasicAttack.cs" />
+    <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Attacks\BasicAttack.cs" />
     <Compile Include="Assets\Scripts\Mousehandler.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
     <Compile Include="Assets\Units\Heroes\DamageDealer\DamageDealer.cs" />
-    <Compile Include="Assets\Units\Bosses\Raynug\Attacks\ClawAttack.cs" />
+    <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Attacks\ClawAttack.cs" />
     <Compile Include="Assets\Units\Attacks\MeleeAttacks\MeleeAttack.cs" />
     <Compile Include="Assets\Scripts\UnitHandler.cs" />
     <Compile Include="Assets\Units\Enemies\Enemy.cs" />
-    <Compile Include="Assets\Units\Bosses\Boss.cs" />
+    <Compile Include="Assets\Units\Enemies\Bosses\Boss.cs" />
     <Compile Include="Assets\Units\Attacks\RangedAttack\RangedAttack.cs" />
     <Compile Include="Assets\Units\Heroes\Tank\Tank.cs" />
     <Compile Include="Assets\Scripts\UiEvent.cs" />
     <Compile Include="Assets\Scripts\AutoResize.cs" />
-    <Compile Include="Assets\Units\Bosses\Raynug\Spells\FireBreath.cs" />
+    <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Spells\FireBreath.cs" />
     <Compile Include="Assets\Scripts\PositionHandler.cs" />
     <Compile Include="Assets\Scripts\TimeManager.cs" />
-    <Compile Include="Assets\Units\Bosses\Raynug\Raynug.cs" />
-    <Compile Include="Assets\Scripts\DropdownRoleChange.cs" />
+    <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Raynug.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_Laser.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\ProjectileMover2D.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\EGA_EffectSound.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_LaserDemo.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\ProjectileMover.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_DemoLasers.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\ParticleCollisionInstance.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\Rotator.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\HittedObject.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_Laser2.cs" />
+    <Compile Include="Assets\Hovl Studio\Resources\Scripts\AutoDestroyPS.cs" />
+    <Compile Include="Assets\Units\Attacks\Spells\Ranged\Heal\Heal.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Hovl Studio\AAA Projectiles Vol 1\Prefabs\Readme.txt" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Lit_CenterGlow.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\SmoothSmoke.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\DissolveNoise.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Distortion.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Blend_TwoSides.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Electricity.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Blend_CenterGlow.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Blend_Normals.shader" />
+    <None Include="Assets\Hovl Studio\AOE Magic spells Vol.1\Prefabs\Readme.txt" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\LightGlow.shader" />
+    <None Include="Assets\Hovl Studio\Magic circles\Prefabs\Loop version\How to use.txt" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\BlendDistort.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\AddTrail.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Shaders\Add_CenterGlow.shader" />
+    <None Include="Assets\Hovl Studio\Resources\Scripts\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
