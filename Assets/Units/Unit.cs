@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -17,6 +19,9 @@ public class Unit : MonoBehaviour
     public float attackSpeed;
     public float lastAttack = 0;
     public float turnSpeed;
+    public bool isCasting = false;
+    public Spell currentSpell;
+    public float castTimer;
 
     public enum Role
     {
@@ -24,7 +29,8 @@ public class Unit : MonoBehaviour
         Healer,
         DamageDealer,
         Boss
-    }
+    };
+
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -44,47 +50,105 @@ public class Unit : MonoBehaviour
     {
         if (timeManager.run)
         {
-            if (target != null)
+            if (target == null)
             {
-                Vector3 direction = target.transform.position - transform.position;
-                if (role == Role.Boss)
-
-                    Debug.DrawRay(transform.position, direction, Color.red);
-                //Quaternion toRotation = Quaternion.FromToRotation(transform.position, direction);
-                Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-                if (transform.rotation != toRotation && GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name != GetComponent<MeleeAttack>().attackAnim.name)
+                AquireTarget();
+            }
+            else
+            {
+                RotateTowardsTarget();
+                if (target.hitPoints > 0)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
+                    if (!isCasting)
+                    {
+                        if (!TryCastSpell())
+                        {
+                            TryAttack();
+                        }
+                    }
+                    else
+                    {
+                        UpdateCastTime();
+                    }
+                }
+                else
+                {
+                    target = null;
                 }
             }
-
         }
     }
 
     public virtual void AquireTarget()
     {
 
+    }
 
+    public virtual void TryAttack()
+    {
+        if (timeManager.currentTime > lastAttack + attackSpeed)
+        {
+            if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                Attack();
+            }
+        }
     }
 
     public virtual void Attack()
     {
-        if (timeManager.currentTime > lastAttack + attackSpeed)
+        if (TryGetComponent(out Animator animator))
         {
-            if (TryGetComponent<Animator>(out Animator animator))
+            animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
+
+        }
+        target.TakeDamage(attackDamage);
+        lastAttack = timeManager.currentTime;
+        if (target.hitPoints < 0)
+        {
+            target = null;
+        }
+    }
+
+
+
+    public virtual bool TryCastSpell()
+    {
+        Spell[] spells = GetComponents<Spell>();
+
+        foreach (Spell spell in spells)
+        {
+            if (spell.cooldownTimer <= 0)
             {
-                animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
 
+                StartCastSpell(spell);
+                return true;
             }
-
-
-            target.TakeDamage(attackDamage);
-            lastAttack = timeManager.currentTime;
-            if (target.hitPoints < 0)
+            else
             {
-                target = null;
+                spell.cooldownTimer -= Time.deltaTime;
             }
+        }
+        return false;
+    }
+
+    public virtual void StartCastSpell(Spell spell)
+    {
+        currentSpell = spell;
+        isCasting = true;
+    }
+
+    public virtual void UpdateCastTime()
+    {
+        if (castTimer >= currentSpell.castTime)
+        {
+            currentSpell.CastSpell(this);
+            castTimer = 0;
+            isCasting = false;
+        }
+        else
+        {
+            castTimer += Time.deltaTime;
         }
     }
 
@@ -95,6 +159,24 @@ public class Unit : MonoBehaviour
         if (hitPoints <= 0)
         {
             Die();
+        }
+    }
+
+    private void RotateTowardsTarget()
+    {
+        if (target != this)
+        {
+            Vector3 direction = target.transform.position - transform.position;
+            if (role == Role.Boss)
+
+                Debug.DrawRay(transform.position, direction, Color.red);
+            //Quaternion toRotation = Quaternion.FromToRotation(transform.position, direction);
+            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+            if (transform.rotation != toRotation && GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name != GetComponent<MeleeAttack>().attackAnim.name)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
+            }
         }
     }
 

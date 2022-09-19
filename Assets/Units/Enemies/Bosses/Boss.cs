@@ -20,25 +20,7 @@ public class Boss : Enemy
     public override void Update()
     {
             base.Update();
-        if (timeManager.run)
-        {
-            if (target == null)
-            {
-                AquireTarget();
-            }
-            else
-            {
-                if (target.hitPoints > 0)
-                {
-
-                    Attack();
-                }
-                else
-                {
-                    target = null;
-                }
-            }
-        }
+        
         
     }
 
@@ -60,6 +42,8 @@ public class Boss : Enemy
             }
         }
     }
+
+    
 
     public override void Die()
     {

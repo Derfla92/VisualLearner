@@ -10,7 +10,6 @@ public class EventManager : MonoBehaviour
     public GameObject eventsContainer;
     public GameObject eventPrefab;
     public List<UiEvent> uiEvents = new List<UiEvent>();
-    public List<GameEvent> gameEvents = new List<GameEvent>();
 
     public int eventTime;
     public bool eventReccuring;

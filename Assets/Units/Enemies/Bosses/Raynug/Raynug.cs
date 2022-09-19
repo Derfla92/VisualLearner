@@ -15,12 +15,31 @@ public class Raynug : Boss
     // Update is called once per frame
     public override void Update()
     {
+        if (timeManager.run)
+        {
+            if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Sleep"))
+            {
+                GetComponent<Animator>().Play("Idle");
+            }
+        }
         base.Update();
     }
 
     public override void Attack()
     {
         base.Attack();
+    }
+
+
+    public override void TryAttack()
+    {
+        if (timeManager.currentTime > lastAttack + attackSpeed)
+        {
+            if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                Attack();
+            }
+        }
     }
 
 

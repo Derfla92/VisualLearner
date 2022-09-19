@@ -1233,16 +1233,16 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   target: {fileID: 0}
   role: 0
-  maxHitPoints: 100
-  hitPoints: 100
+  maxHitPoints: 10000
+  hitPoints: 10000
   attackDamage: 2
   attackSpeed: 1.5
   lastAttack: 0
   turnSpeed: 1.5
+  isCasting: 0
+  currentSpell: {fileID: 0}
+  castTimer: 0
   healthBar: {fileID: 3542800153665509994}
-  healingPower: 40
-  coolDown: 1.5
-  lastHeal: 0
 --- !u!114 &2083766704510394430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1268,11 +1268,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be3c5878902620469071e503782e149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellName: 
-  castTime: 0
-  cooldown: 0
+  spellName: Heal
+  spellType: 1
+  castTime: 2.5
+  cooldown: 1.5
   cooldownTimer: 0
-  prefab: {fileID: 1592372973558972, guid: 014c1940819ff7d4f962727aef8deeb7, type: 3}
+  spellPrefab: {fileID: 1592372973558972, guid: 014c1940819ff7d4f962727aef8deeb7, type: 3}
+  instantiatedObject: []
+  healingPower: 100
 --- !u!1 &8059006170451872241
 GameObject:
   m_ObjectHideFlags: 0

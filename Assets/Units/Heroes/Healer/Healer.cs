@@ -7,10 +7,6 @@ using UnityEngine;
 public class Healer : Hero
 {
 
-    public int healingPower;
-    public float coolDown;
-    public float lastHeal;
-
 
     // Start is called before the first frame update
     public override void Start()
@@ -28,57 +24,47 @@ public class Healer : Hero
     public override void Update()
     {
         base.Update();
-        if (timeManager.run)
+    }
+
+    public override void AquireTarget()
+    {
+        if (!FindHealingTarget())
         {
-            if (lastHeal + coolDown < timeManager.currentTime)
-            {
-                FindHealingTarget();
-                if (target != null)
-                {
-                    if (target.role != Unit.Role.Boss)
-                    {
-                        Heal();
-                        target = null;
-                    }
-                }
-            }
+            base.AquireTarget();
         }
     }
 
-    public void Heal()
+
+
+    public bool FindHealingTarget()
     {
-        if (target != null)
-        {
-            Animator animator = GetComponent<Animator>();
-            animator.Play("Heal");
-            Debug.Log("Healing: " + target.name);
-
-            List<Spell> spells = GetComponents<Spell>().ToList();
-
-            Spell spell = spells.Find(x => x.spellName == "Heal");
-
-            Transform heal = Instantiate(spell.prefab).transform;
-
-            spell.instantiatedObject.Add(heal.gameObject);
-            heal.position = target.transform.position;
-            
-            
-
-            target.hitPoints += healingPower;
-            target.GetComponent<Hero>().UpdateHealthBar();
-            lastHeal = timeManager.currentTime;
-        }
-
-    }
-
-    public void FindHealingTarget()
-    {
-        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints < x.maxHitPoints - healingPower);
+        Debug.Log("Finding healing target");
+        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<Heal>().healingPower);
         if (healableTarget.Count > 0)
         {
             Debug.Log("Found healable target");
             int rand = Random.Range(0, healableTarget.Count - 1);
             target = healableTarget[rand];
+            return true;
+        }
+        return false;
+    }
+
+    public override void StartCastSpell(Spell spell)
+    {
+        if (spell is FriendlySpell)
+        {
+            if (target is Hero)
+            {
+                currentSpell = spell;
+                isCasting = true;
+            }
+            else
+            {
+                target = null;
+            }
         }
     }
+
+
 }

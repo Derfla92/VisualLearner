@@ -1887,8 +1887,8 @@ MonoBehaviour:
   healerPrefab: {fileID: 8059006170336702729, guid: 1f273eb3f6872564f955d95a5664f198, type: 3}
   damageDealerPrefab: {fileID: 8059006170336702729, guid: a76f777bf44bc704ea0ed490b210bc3b, type: 3}
   tanks: 1
-  healers: 1
-  damageDealers: 23
+  healers: 2
+  damageDealers: 22
   infoPane: {fileID: 575698669}
   dropdown: {fileID: 34155595}
   selectedUnit: {fileID: 0}
@@ -3757,14 +3757,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.37981355, y: -0, z: -0, w: 0.9250631}
-  m_LocalPosition: {x: 0, y: 29.31, z: -29.24}
+  m_LocalRotation: {x: 0.38698626, y: -0, z: -0, w: 0.9220855}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1687350790}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 44.644, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.534, y: 0, z: 0}
 --- !u!4 &966310575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 442714685678995978, guid: b272be2e77efd2444aeef6cee95be94b, type: 3}
@@ -4294,7 +4294,6 @@ MonoBehaviour:
   eventPrefab: {fileID: 2024105440983283460, guid: 0f4c71c878d60d841a25c813176c72e5, type: 3}
   uiEvents:
   - {fileID: 895677575}
-  gameEvents: []
   eventTime: 0
   eventReccuring: 0
 --- !u!114 &1239224960
@@ -5453,6 +5452,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1657046394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5491,6 +5502,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657046391}
   m_CullTransparentMesh: 1
+--- !u!1 &1687350788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1687350790}
+  - component: {fileID: 1687350789}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1687350789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687350788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24130561278ac6342920cab0ec9f2d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1687350790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687350788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 29.31, z: -29.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 963194228}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1696813246
 GameObject:
   m_ObjectHideFlags: 0
@@ -5704,6 +5760,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 449104185}
     m_Modifications:
+    - target: {fileID: -6011937979367113379, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+      propertyPath: cooldown
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -6011937979367113379, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+      propertyPath: spellPrefab
+      value: 
+      objectReference: {fileID: 1873886433987638, guid: 75d1969ca31541447a7f079db4119ea3, type: 3}
     - target: {fileID: 139696, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
       propertyPath: m_Name
       value: Raynug

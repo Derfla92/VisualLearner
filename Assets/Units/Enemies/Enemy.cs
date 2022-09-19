@@ -20,10 +20,9 @@ public class Enemy : Unit
     {
         base.Update();
     }
+
     public override void AquireTarget()
     {
-
-
         if (unitHandler.heroes.Count > 0)
         {
             if (unitHandler.heroes.Find(x => x.role == Unit.Role.Tank))

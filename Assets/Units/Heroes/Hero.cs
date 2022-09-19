@@ -16,24 +16,15 @@ public class Hero : Unit
     // Update is called once per frame
     public override void Update()
     {
+        healthBar.transform.parent.transform.LookAt(Camera.main.transform.position * -1);
         base.Update();
-        if (role != Unit.Role.Healer)
+    }
+
+    public override void AquireTarget()
+    {
+        if (unitHandler.enemies.Count > 0)
         {
-            if (target == null)
-            {
-                AquireTarget();
-            }
-            else
-            {
-                if (target.hitPoints > 0)
-                {
-                    Attack();
-                }
-                else
-                {
-                    target = null;
-                }
-            }
+            target = unitHandler.enemies.Find(x => x.role == Unit.Role.Boss);
         }
     }
 
@@ -44,13 +35,6 @@ public class Hero : Unit
 
     }
 
-    public override void AquireTarget()
-    {
-        if (unitHandler.enemies.Count > 0)
-        {
-            target = unitHandler.enemies.Find(x => x.role == Unit.Role.Boss);
-        }
-    }
 
     public void UpdateHealthBar()
     {
