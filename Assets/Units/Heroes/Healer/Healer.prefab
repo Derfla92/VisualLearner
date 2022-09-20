@@ -1232,9 +1232,9 @@ MonoBehaviour:
   timeManager: {fileID: 0}
   gameManager: {fileID: 0}
   target: {fileID: 0}
-  role: 0
-  maxHitPoints: 10000
-  hitPoints: 10000
+  role: 1
+  maxHitPoints: 100
+  hitPoints: 100
   attackDamage: 2
   attackSpeed: 1.5
   lastAttack: 0

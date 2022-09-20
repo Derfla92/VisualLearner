@@ -23,13 +23,7 @@ public class EventManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (uiEvents.Count > 0)
-        {
-            if (timeManager.currentTime == uiEvents[0].eventTime)
-            {
-                Debug.Log("trigger event");
-            }
-        }
+
     }
 
     //Only meant to be called when game isnt running
@@ -52,7 +46,7 @@ public class EventManager : MonoBehaviour
         eventReccuring = false;
     }
 
-    public UiEvent NewRecurringEvent(int time)
+    public UiEvent NewRecurringEvent(float time)
     {
         UiEvent newEvent = Instantiate(eventPrefab, eventsContainer.transform).GetComponent<UiEvent>();
 

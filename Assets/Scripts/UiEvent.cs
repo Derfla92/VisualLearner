@@ -7,7 +7,7 @@ public class UiEvent : MonoBehaviour
 {
     public bool initialized = false;
 
-    public int eventTime = 0;
+    public float eventTime = 0;
     public bool recurringEvent = false;
 
     UiEvent(int eventTime, bool recurringEvent)
