@@ -1238,6 +1238,9 @@ MonoBehaviour:
   attackSpeed: 1.5
   lastAttack: 0
   turnSpeed: 1.5
+  isCasting: 0
+  currentSpell: {fileID: 0}
+  castTimer: 0
   healthBar: {fileID: 3542800153665509994}
 --- !u!114 &2083766704510394430
 MonoBehaviour:

@@ -19,8 +19,5 @@ public class DragonPunch : Spell
     public override void Update()
     {
         base.Update();
-        GameObject spellObject = instantiatedObject.Find(x => !x.GetComponent<ParticleSystem>().isPlaying);
-        instantiatedObject.Remove(spellObject);
-        Destroy(spellObject);
     }
 }

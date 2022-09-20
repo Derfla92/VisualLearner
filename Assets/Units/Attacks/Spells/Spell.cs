@@ -15,6 +15,7 @@ public class Spell : MonoBehaviour
     public float cooldownTimer;
     public GameObject spellPrefab;
     public List<GameObject> instantiatedObject;
+
     public enum SpellType
     {
         Projectile,
@@ -47,7 +48,7 @@ public class Spell : MonoBehaviour
         instantiatedObject.Add(Instantiate(spellPrefab));
         cooldownTimer = cooldown;
         if(spellType == SpellType.Projectile)
-        { 
+        {
             AimSpell(caster.transform.position,caster.transform.forward);
             
         }

@@ -20,6 +20,11 @@ public class Hero : Unit
         base.Update();
     }
 
+    public virtual void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(this.name + " was hit by spell");
+    }
+
     public override void AquireTarget()
     {
         if (unitHandler.enemies.Count > 0)

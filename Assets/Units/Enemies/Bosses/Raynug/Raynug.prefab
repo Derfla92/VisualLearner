@@ -1328,11 +1328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c3d54e0ce07b8438fad4b0d694162d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: bba83afbd9e798a498b51b39c1d5fe0c, type: 3}
   spellName: Dragon Punch
   spellType: 0
   castTime: 2
-  cooldown: 15
-  cooldownTimer: 0
+  cooldown: 30
+  cooldownTimer: 30
   spellPrefab: {fileID: 1873886433987638, guid: 75d1969ca31541447a7f079db4119ea3, type: 3}
   instantiatedObject: []
 --- !u!1 &139704

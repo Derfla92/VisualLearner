@@ -1268,6 +1268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be3c5878902620469071e503782e149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 0}
   spellName: Heal
   spellType: 1
   castTime: 2.5
