@@ -6,6 +6,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Spell : MonoBehaviour
 {
+
+    public Sprite icon;
     public string spellName;
     public SpellType spellType;
     public float castTime;

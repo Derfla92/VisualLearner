@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1945,9 +1945,6 @@ MonoBehaviour:
   timeManager: {fileID: 93847280}
   timeLine: {fileID: 896272723}
   timeMarker: {fileID: 236168195}
-  unitHandler: {fileID: 401222105}
-  events: {fileID: 289631659}
-  eventPrefab: {fileID: 2024105440983283460, guid: 0f4c71c878d60d841a25c813176c72e5, type: 3}
 --- !u!1 &449104184
 GameObject:
   m_ObjectHideFlags: 0
@@ -3411,7 +3408,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -52}
   m_SizeDelta: {x: 0, y: 12}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &896272725
@@ -4087,6 +4084,7 @@ MonoBehaviour:
   eventPrefab: {fileID: 2024105440983283460, guid: 0f4c71c878d60d841a25c813176c72e5, type: 3}
   uiEvents:
   - {fileID: 0}
+  unitHandler: {fileID: 401222105}
   eventTime: 0
   eventReccuring: 0
 --- !u!114 &1239224960
@@ -5553,6 +5551,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 449104185}
     m_Modifications:
+    - target: {fileID: -6011937979367113379, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: bba83afbd9e798a498b51b39c1d5fe0c, type: 3}
     - target: {fileID: -6011937979367113379, guid: eb58e8f2831a51f45a44a261e6710cdd, type: 3}
       propertyPath: cooldown
       value: 30

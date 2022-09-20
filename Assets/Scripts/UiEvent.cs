@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UiEvent : MonoBehaviour
 {
+    public Image icon;
     public bool initialized = false;
 
     public float eventTime = 0;
@@ -47,6 +48,7 @@ public class UiEvent : MonoBehaviour
                             UiEvent newEvent = GameObject.Find("GameManager").GetComponent<EventManager>().NewRecurringEvent(eventTime*2);
                             newEvent.rootEvent = rootEvent;
                             newEvent.previousEvent = this;
+                            newEvent.icon.sprite = rootEvent.icon.sprite;
                             nextEvent = newEvent;
                             PlaceEventOnTimeline();
                             newEvent.initialized = true;
@@ -60,6 +62,7 @@ public class UiEvent : MonoBehaviour
                             UiEvent newEvent = GameObject.Find("GameManager").GetComponent<EventManager>().NewRecurringEvent(eventTime + rootEvent.eventTime);
                             newEvent.rootEvent = rootEvent;
                             newEvent.previousEvent = this;
+                            newEvent.icon.sprite = rootEvent.icon.sprite;
                             nextEvent = newEvent;
                             PlaceEventOnTimeline();
                             newEvent.initialized = true;
