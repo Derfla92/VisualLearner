@@ -22,7 +22,7 @@ public class Hero : Unit
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log(this.name + " was hit by spell");
+        //Debug.Log(this.name + " was hit by spell");
     }
 
     public override void AquireTarget()

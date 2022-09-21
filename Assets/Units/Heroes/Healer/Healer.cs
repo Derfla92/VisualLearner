@@ -23,7 +23,36 @@ public class Healer : Hero
     // Update is called once per frame
     public override void Update()
     {
-        base.Update();
+        if (timeManager.run)
+        {
+            if(FindHealingTarget())
+            {
+                SpellCaster spellCaster = GetComponent<SpellCaster>();
+                if (!spellCaster.isCasting)
+                {
+                    spellCaster.TryCastSpell();
+                }
+                else
+                {
+                    spellCaster.UpdateCastTime();
+                }
+            }
+            else
+            {
+                if (target == null)
+                {
+                    AquireTarget();
+                }
+                else
+                {
+                    if (target.hitPoints > 0)
+                    {
+                        RotateTowardsTarget();
+                        TryAttack();
+                    }
+                }
+            }
+        }
     }
 
     public override void AquireTarget()
@@ -38,8 +67,7 @@ public class Healer : Hero
 
     public bool FindHealingTarget()
     {
-        Debug.Log("Finding healing target");
-        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<Heal>().healingPower);
+        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<SpellCaster>().spells.Find(x => x.GetComponent<Heal>()).GetComponent<Heal>().healingPower);
         if (healableTarget.Count > 0)
         {
             Debug.Log("Found healable target");
@@ -49,22 +77,5 @@ public class Healer : Hero
         }
         return false;
     }
-
-    public override void StartCastSpell(Spell spell)
-    {
-        if (spell is FriendlySpell)
-        {
-            if (target is Hero)
-            {
-                currentSpell = spell;
-                isCasting = true;
-            }
-            else
-            {
-                target = null;
-            }
-        }
-    }
-
 
 }

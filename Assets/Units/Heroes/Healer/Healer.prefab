@@ -1154,7 +1154,7 @@ GameObject:
   - component: {fileID: 7482333426543141224}
   - component: {fileID: 932290674473674619}
   - component: {fileID: 2083766704510394430}
-  - component: {fileID: 3298632824959765699}
+  - component: {fileID: 1384782838515258560}
   m_Layer: 3
   m_Name: Healer
   m_TagString: Untagged
@@ -1239,9 +1239,6 @@ MonoBehaviour:
   attackSpeed: 1.5
   lastAttack: 0
   turnSpeed: 1.5
-  isCasting: 0
-  currentSpell: {fileID: 0}
-  castTimer: 0
   healthBar: {fileID: 3542800153665509994}
 --- !u!114 &2083766704510394430
 MonoBehaviour:
@@ -1256,7 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAnim: {fileID: 7400004, guid: 2cfba37fab445484d96249beba922637, type: 3}
---- !u!114 &3298632824959765699
+--- !u!114 &1384782838515258560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1265,18 +1262,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8059006170336702729}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be3c5878902620469071e503782e149, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a6d6c76756848c4ab4c7d8180caefc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  spellName: Heal
-  spellType: 1
-  castTime: 2.5
-  cooldown: 1.5
-  cooldownTimer: 0
-  spellPrefab: {fileID: 1592372973558972, guid: 014c1940819ff7d4f962727aef8deeb7, type: 3}
-  instantiatedObject: []
-  healingPower: 100
+  spells:
+  - {fileID: 1592372973558972, guid: 014c1940819ff7d4f962727aef8deeb7, type: 3}
+  isCasting: 0
+  currentSpell: {fileID: 0}
+  castTimer: 0
 --- !u!1 &8059006170451872241
 GameObject:
   m_ObjectHideFlags: 0

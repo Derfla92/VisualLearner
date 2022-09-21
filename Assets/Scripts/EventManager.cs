@@ -32,10 +32,10 @@ public class EventManager : MonoBehaviour
     public void GetBossEvents()
     {
         Boss boss = (Boss)unitHandler.enemies.Find(x => x is Boss);
-        Spell[] bossSpells = boss.GetComponents<Spell>();
-        foreach (Spell spell in bossSpells)
+        GameObject[] bossSpells = boss.GetComponent<SpellCaster>().spells.ToArray();
+        foreach (GameObject spell in bossSpells)
         {
-            UiEvent newEvent = NewRecurringEvent(spell);
+            UiEvent newEvent = NewRecurringEvent(spell.GetComponent<Spell>());
             newEvent.initialized = true;
             //UiEvent newEvent = Instantiate(eventPrefab).GetComponent<UiEvent>();
 

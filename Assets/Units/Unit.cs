@@ -19,9 +19,7 @@ public class Unit : MonoBehaviour
     public float attackSpeed;
     public float lastAttack = 0;
     public float turnSpeed;
-    public bool isCasting = false;
-    public Spell currentSpell;
-    public float castTimer;
+
 
     public enum Role
     {
@@ -57,19 +55,29 @@ public class Unit : MonoBehaviour
             else
             {
                 RotateTowardsTarget();
+                SpellCaster spellCaster = GetComponent<SpellCaster>();
+                
                 if (target.hitPoints > 0)
                 {
-                    if (!isCasting)
+                    if(spellCaster)
                     {
-                        if (!TryCastSpell())
+                        if (!spellCaster.isCasting)
                         {
-                            TryAttack();
+                            if (!spellCaster.TryCastSpell())
+                            {
+                                TryAttack();
+                            }
+                        }
+                        else
+                        {
+                            spellCaster.UpdateCastTime();
                         }
                     }
                     else
                     {
-                        UpdateCastTime();
+                        TryAttack();
                     }
+                    
                 }
                 else
                 {
@@ -104,53 +112,8 @@ public class Unit : MonoBehaviour
         }
         target.TakeDamage(attackDamage);
         lastAttack = timeManager.currentTime;
-        if (target.hitPoints < 0)
-        {
-            target = null;
-        }
     }
 
-
-
-    public virtual bool TryCastSpell()
-    {
-        Spell[] spells = GetComponents<Spell>();
-
-        foreach (Spell spell in spells)
-        {
-            if (spell.cooldownTimer <= 0)
-            {
-
-                StartCastSpell(spell);
-                return true;
-            }
-            else
-            {
-                spell.cooldownTimer -= Time.deltaTime;
-            }
-        }
-        return false;
-    }
-
-    public virtual void StartCastSpell(Spell spell)
-    {
-        currentSpell = spell;
-        isCasting = true;
-    }
-
-    public virtual void UpdateCastTime()
-    {
-        if (castTimer >= currentSpell.castTime)
-        {
-            currentSpell.CastSpell(this);
-            castTimer = 0;
-            isCasting = false;
-        }
-        else
-        {
-            castTimer += Time.deltaTime;
-        }
-    }
 
     public virtual void TakeDamage(int damage)
     {
@@ -162,7 +125,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void RotateTowardsTarget()
+    public void RotateTowardsTarget()
     {
         if (target != this)
         {
