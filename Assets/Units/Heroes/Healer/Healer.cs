@@ -7,7 +7,6 @@ using UnityEngine;
 public class Healer : Hero
 {
 
-
     // Start is called before the first frame update
     public override void Start()
     {
@@ -25,7 +24,7 @@ public class Healer : Hero
     {
         if (timeManager.run)
         {
-            if(FindHealingTarget())
+            if (FindHealingTarget())
             {
                 SpellCaster spellCaster = GetComponent<SpellCaster>();
                 if (!spellCaster.isCasting)
@@ -45,10 +44,13 @@ public class Healer : Hero
                 }
                 else
                 {
-                    if (target.hitPoints > 0)
+                    if (!target.GetComponent<Hero>())
                     {
-                        RotateTowardsTarget();
-                        TryAttack();
+                        if (target.hitPoints > 0)
+                        {
+                            RotateTowardsTarget();
+                            TryAttack();
+                        }
                     }
                 }
             }
@@ -65,16 +67,33 @@ public class Healer : Hero
 
 
 
+    //public bool FindHealingTarget()
+    //{
+
+    //    List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<SpellCaster>().spells.Find(x => x.GetComponent<Heal>()).GetComponent<Heal>().healingPower);
+    //    if (healableTarget.Count > 0)
+    //    {
+    //        Debug.Log("Found healable target");
+    //        int rand = Random.Range(0, healableTarget.Count - 1);
+    //        target = healableTarget[rand];
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
+
     public bool FindHealingTarget()
     {
-        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<SpellCaster>().spells.Find(x => x.GetComponent<Heal>()).GetComponent<Heal>().healingPower);
+
+        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints < x.maxHitPoints);
         if (healableTarget.Count > 0)
         {
+            healableTarget.OrderBy(x => x.hitPoints);
             Debug.Log("Found healable target");
-            int rand = Random.Range(0, healableTarget.Count - 1);
-            target = healableTarget[rand];
+            target = healableTarget.First();
             return true;
         }
+
         return false;
     }
 
