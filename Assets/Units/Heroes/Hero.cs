@@ -7,7 +7,7 @@ public class Hero : Unit
 {
     // Start is called before the first frame update
 
-    public GameObject healthBar;
+    
     public override void Start()
     {
         base.Start();
@@ -16,7 +16,7 @@ public class Hero : Unit
     // Update is called once per frame
     public override void Update()
     {
-        healthBar.transform.parent.transform.LookAt(Camera.main.transform.position * -1);
+        
         base.Update();
     }
 
@@ -33,18 +33,7 @@ public class Hero : Unit
         }
     }
 
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        UpdateHealthBar();
-
-    }
-
-
-    public void UpdateHealthBar()
-    {
-        healthBar.GetComponent<RectTransform>().offsetMax = new Vector2(-1 * 124 * (1 - ((float)hitPoints / (float)maxHitPoints)), 0);
-    }
+    
 
     public override void Die()
     {

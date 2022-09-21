@@ -24472,7 +24472,7 @@ MonoBehaviour:
   castTime: 2
   cooldown: 0
   cooldownTimer: 0
-  healingPower: 50
+  healingPower: 75
 --- !u!1 &1638467063357568
 GameObject:
   m_ObjectHideFlags: 0

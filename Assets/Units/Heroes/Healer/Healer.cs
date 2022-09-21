@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,14 @@ using UnityEngine;
 
 public class Healer : Hero
 {
+
+    private Dictionary<Unit.Role,float> weight = new Dictionary<Unit.Role,float>
+    {
+        [Unit.Role.Tank] = 0.6f,
+        [Unit.Role.Healer] = 0.5f,
+        [Unit.Role.DamageDealer] = 0.4f,
+    };
+
 
     // Start is called before the first frame update
     public override void Start()
@@ -85,12 +94,16 @@ public class Healer : Hero
     public bool FindHealingTarget()
     {
 
-        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints < x.maxHitPoints);
-        if (healableTarget.Count > 0)
+        List<Hero> healableTargets = unitHandler.heroes.FindAll(x => x.hitPoints < x.maxHitPoints);
+        if (healableTargets.Count > 0)
         {
-            healableTarget.OrderBy(x => x.hitPoints);
-            Debug.Log("Found healable target");
-            target = healableTarget.First();
+            healableTargets = healableTargets.OrderBy(x => ((float)x.hitPoints / (float)x.maxHitPoints) * weight[x.role]).ToList();
+            //Debug.Log("--------------------------");
+            //foreach (var item in healableTargets) 
+            //{
+            //    Debug.Log(item.name + ": " + ((float)item.hitPoints / (float)item.maxHitPoints) * weight[item.role]);
+            //}
+            target = healableTargets.First();
             return true;
         }
 

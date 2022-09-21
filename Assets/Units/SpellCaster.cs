@@ -66,7 +66,6 @@ public class SpellCaster : MonoBehaviour
 
     public void CastSpell(GameObject spell)
     {
-        Debug.Log("playing heal animation");
         Animator animator = GetComponent<Animator>();
 
             animator.Play(spell.name);

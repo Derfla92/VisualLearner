@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
     public UnitHandler unitHandler;
     public TimeManager timeManager;
     public GameManager gameManager;
+    public GameObject healthBar;
     public Unit target;
     public Role role;
     public int maxHitPoints;
@@ -85,6 +86,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
+        healthBar.transform.parent.transform.LookAt(Camera.main.transform.position * -1);
     }
 
     public virtual void AquireTarget()
@@ -121,8 +123,26 @@ public class Unit : MonoBehaviour
 
         if (hitPoints <= 0)
         {
+            hitPoints = 0;
             Die();
         }
+        UpdateHealthBar();
+    }
+
+    public virtual void GetHealed(int healing)
+    {
+        hitPoints += healing;
+        if (hitPoints > maxHitPoints)
+        {
+            hitPoints = maxHitPoints;
+        }
+        UpdateHealthBar();
+    }
+
+    public void UpdateHealthBar()
+    {
+        Debug.Log(GetComponentInParent<RectTransform>().offsetMax.x);
+        healthBar.GetComponent<RectTransform>().offsetMax = new Vector2(-1 * GetComponentInParent<RectTransform>().offsetMax.x * (1 - ((float)hitPoints / (float)maxHitPoints)), 0);
     }
 
     public void RotateTowardsTarget()
