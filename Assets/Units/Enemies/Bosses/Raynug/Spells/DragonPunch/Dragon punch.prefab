@@ -48891,8 +48891,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: bba83afbd9e798a498b51b39c1d5fe0c, type: 3}
   spellType: 0
   castTime: 2
-  cooldown: 10
-  cooldownTimer: 4.977861
+  cooldown: 30
+  cooldownTimer: 0
   damage: 60
 --- !u!65 &2631313756985079904
 BoxCollider:

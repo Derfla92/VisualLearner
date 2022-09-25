@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour
     public GameObject eventsContainer;
     public GameObject eventPrefab;
     public List<UiEvent> uiEvents = new List<UiEvent>();
+    public UiEvent nextEvent;
 
     public UnitHandler unitHandler;
 
@@ -26,7 +27,8 @@ public class EventManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        nextEvent = uiEvents.Find(x => x.eventTime > timeManager.currentTime);
+        UpdateTimeLine();
     }
 
     public void GetBossEvents()
@@ -37,14 +39,12 @@ public class EventManager : MonoBehaviour
         {
             UiEvent newEvent = NewRecurringEvent(spell.GetComponent<Spell>());
             newEvent.initialized = true;
-            //UiEvent newEvent = Instantiate(eventPrefab).GetComponent<UiEvent>();
-
-            //newEvent.eventTime = (spell.cooldown + spell.castTime) * 2;
-            //newEvent.GetComponent<RectTransform>().localPosition = new Vector2((spell.cooldown + spell.castTime) * 2, -6);
-            //newEvent.recurringEvent = true;
-            //newEvent.rootEvent = newEvent;
-            //newEvent.initialized = true;
         }
+    }
+
+    public void UpdateTimeLine()
+    {
+
     }
 
     //Only meant to be called when game isnt running
@@ -71,11 +71,17 @@ public class EventManager : MonoBehaviour
     {
         UiEvent newEvent = Instantiate(eventPrefab, eventsContainer.transform).GetComponent<UiEvent>();
 
+        //Add to eventslist
         uiEvents.Add(newEvent);
+
+        //Set event information according to spell
         newEvent.icon.sprite = spell.icon;
         newEvent.recurringEvent = true;
         newEvent.eventTime = (spell.castTime + spell.cooldown) * 2;
         newEvent.rootEvent = newEvent;
+        newEvent.glow.SetActive(true);
+
+        //Position Event
         newEvent.PlaceEventOnTimeline();
 
         return newEvent;

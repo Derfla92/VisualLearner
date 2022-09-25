@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Hero : Unit
 {
     // Start is called before the first frame update
-
+    public List<EventAction> nextActions;
     
     public override void Start()
     {
@@ -16,7 +16,7 @@ public class Hero : Unit
     // Update is called once per frame
     public override void Update()
     {
-        
+        nextActions = gameManager.GetComponent<EventManager>().nextEvent.eventActions;
         base.Update();
     }
 

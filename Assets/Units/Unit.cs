@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -141,8 +142,8 @@ public class Unit : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        Debug.Log(GetComponentInParent<RectTransform>().offsetMax.x);
-        healthBar.GetComponent<RectTransform>().offsetMax = new Vector2(-1 * GetComponentInParent<RectTransform>().offsetMax.x * (1 - ((float)hitPoints / (float)maxHitPoints)), 0);
+        float healthPercentage = (float)hitPoints / (float)maxHitPoints;
+        healthBar.GetComponent<Image>().fillAmount = healthPercentage;
     }
 
     public void RotateTowardsTarget()

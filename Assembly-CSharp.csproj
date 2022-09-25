@@ -101,6 +101,8 @@
     <Compile Include="Assets\Units\SpellCaster.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
     <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Raynug.cs" />
+    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
+    <Compile Include="Assets\Scripts\EventAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\AAA Projectiles Vol 1\Prefabs\Readme.txt" />
