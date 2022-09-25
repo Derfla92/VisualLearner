@@ -36,7 +36,7 @@ public class DragAndDrop : MonoBehaviour
 
                 if (RectTransformUtility.RectangleContainsScreenPoint(actions[0].GetComponent<RectTransform>(), Input.mousePosition))
                 {
-                    heldItem = Instantiate(actions[0].gameObject, selectedItem.transform);
+                    heldItem = Instantiate(actions[0].gameObject,GetComponentInParent<Canvas>().transform);
                     heldItem.GetComponent<EventAction>().id = currentIdNumber++;
                     heldItem.GetComponent<EventAction>().deleteButton.SetActive(true);
                     heldItem.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleLeft;

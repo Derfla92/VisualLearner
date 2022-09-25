@@ -62,6 +62,7 @@
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_Laser.cs" />
     <Compile Include="Assets\Units\Attacks\Spells\Hostile\HostileSpell.cs" />
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\ParticleCollisionInstance.cs" />
+    <Compile Include="Assets\Scripts\EventAction.cs" />
     <Compile Include="Assets\Units\Attacks\Spells\Spell.cs" />
     <Compile Include="Assets\Units\Heroes\Hero.cs" />
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_LaserDemo.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Assets\Units\Attacks\Attack.cs" />
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\ProjectileMover2D.cs" />
     <Compile Include="Assets\Scripts\EventLine.cs" />
-    <Compile Include="Assets\Scripts\EventView.cs" />
     <Compile Include="Assets\Scripts\MechanicsHandler.cs" />
     <Compile Include="Assets\Units\Attacks\Spells\Friendly\Ranged\Heal\Heal.cs" />
     <Compile Include="Assets\Units\Position.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\EventManager.cs" />
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\ProjectileMover.cs" />
     <Compile Include="Assets\Units\Heroes\DamageDealer\DamageDealer.cs" />
+    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\Hovl_DemoLasers.cs" />
     <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Attacks\ClawAttack.cs" />
     <Compile Include="Assets\Units\Attacks\MeleeAttacks\MeleeAttack.cs" />
@@ -101,8 +102,6 @@
     <Compile Include="Assets\Units\SpellCaster.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
     <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Raynug.cs" />
-    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
-    <Compile Include="Assets\Scripts\EventAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\AAA Projectiles Vol 1\Prefabs\Readme.txt" />

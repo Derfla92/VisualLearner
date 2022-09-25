@@ -16,7 +16,7 @@ public class Hero : Unit
     // Update is called once per frame
     public override void Update()
     {
-        nextActions = gameManager.GetComponent<EventManager>().nextEvent.eventActions;
+        //nextActions = gameManager.GetComponent<EventManager>().nextEvent.eventActions;
         base.Update();
     }
 

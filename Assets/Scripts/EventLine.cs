@@ -7,8 +7,9 @@ using Unity.VisualScripting;
 public class EventLine : MonoBehaviour
 {
     public TimeManager timeManager;
-    public GameObject timeLine;
-    public GameObject timeMarker;
+    public RectTransform content;
+    public RectTransform timeLine;
+    public RectTransform timeMarker;
 
 
 
@@ -29,11 +30,11 @@ public class EventLine : MonoBehaviour
 
     private void AdvanceTime()
     {
-        RectTransform rectTransform = timeLine.GetComponent<RectTransform>();
-        rectTransform.offsetMax += new Vector2(Time.deltaTime * 2, 0);
+        timeLine.offsetMax += new Vector2(Time.deltaTime * 2, 0);
 
-        rectTransform = timeMarker.GetComponent<RectTransform>();
-        rectTransform.offsetMax = new Vector2(timeManager.currentTime * 2, rectTransform.offsetMax.y);
+        timeMarker.offsetMax = new Vector2(timeManager.currentTime * 2, timeMarker.offsetMax.y);
+
+        content.offsetMax += new Vector2(Time.deltaTime, 0);
     }
 
 
