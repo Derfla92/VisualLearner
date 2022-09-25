@@ -27,7 +27,7 @@ public class EventManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nextEvent = uiEvents.Find(x => x.eventTime > timeManager.currentTime);
+        //nextEvent = uiEvents.Find(x => x.eventTime > timeManager.currentTime);
         UpdateTimeLine();
     }
 
