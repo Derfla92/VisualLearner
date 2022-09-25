@@ -25,20 +25,12 @@ public class Heal : FriendlySpell
     }
 
     public override void ApplySpellEffect(Unit target)
-    {
-        Debug.Log("Healing: " + target.name);
-
-        target.hitPoints += healingPower;
-        if (target.hitPoints > target.maxHitPoints)
-        {
-            target.hitPoints = target.maxHitPoints;
-        }
-        target.GetComponent<Hero>().UpdateHealthBar();
+    { 
+        target.GetHealed(healingPower);  
     }
 
     public override void PlayAnimation()
     {
-        Debug.Log("playing heal animation");
         Animator animator = GetComponent<Animator>();
         animator.Play("Heal");
     }

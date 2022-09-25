@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,13 @@ using UnityEngine;
 
 public class Healer : Hero
 {
+
+    private Dictionary<Unit.Role,float> weight = new Dictionary<Unit.Role,float>
+    {
+        [Unit.Role.Tank] = 0.6f,
+        [Unit.Role.Healer] = 0.5f,
+        [Unit.Role.DamageDealer] = 0.4f,
+    };
 
 
     // Start is called before the first frame update
@@ -23,7 +31,39 @@ public class Healer : Hero
     // Update is called once per frame
     public override void Update()
     {
-        base.Update();
+        if (timeManager.run)
+        {
+            if (FindHealingTarget())
+            {
+                SpellCaster spellCaster = GetComponent<SpellCaster>();
+                if (!spellCaster.isCasting)
+                {
+                    spellCaster.TryCastSpell();
+                }
+                else
+                {
+                    spellCaster.UpdateCastTime();
+                }
+            }
+            else
+            {
+                if (target == null)
+                {
+                    AquireTarget();
+                }
+                else
+                {
+                    if (!target.GetComponent<Hero>())
+                    {
+                        if (target.hitPoints > 0)
+                        {
+                            RotateTowardsTarget();
+                            TryAttack();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public override void AquireTarget()
@@ -36,35 +76,38 @@ public class Healer : Hero
 
 
 
+    //public bool FindHealingTarget()
+    //{
+
+    //    List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<SpellCaster>().spells.Find(x => x.GetComponent<Heal>()).GetComponent<Heal>().healingPower);
+    //    if (healableTarget.Count > 0)
+    //    {
+    //        Debug.Log("Found healable target");
+    //        int rand = Random.Range(0, healableTarget.Count - 1);
+    //        target = healableTarget[rand];
+    //        return true;
+    //    }
+
+    //    return false;
+    //}
+
     public bool FindHealingTarget()
     {
-        Debug.Log("Finding healing target");
-        List<Hero> healableTarget = unitHandler.heroes.FindAll(x => x.hitPoints <= x.maxHitPoints - GetComponent<Heal>().healingPower);
-        if (healableTarget.Count > 0)
+
+        List<Hero> healableTargets = unitHandler.heroes.FindAll(x => x.hitPoints < x.maxHitPoints);
+        if (healableTargets.Count > 0)
         {
-            Debug.Log("Found healable target");
-            int rand = Random.Range(0, healableTarget.Count - 1);
-            target = healableTarget[rand];
+            healableTargets = healableTargets.OrderBy(x => ((float)x.hitPoints / (float)x.maxHitPoints) * weight[x.role]).ToList();
+            //Debug.Log("--------------------------");
+            //foreach (var item in healableTargets) 
+            //{
+            //    Debug.Log(item.name + ": " + ((float)item.hitPoints / (float)item.maxHitPoints) * weight[item.role]);
+            //}
+            target = healableTargets.First();
             return true;
         }
+
         return false;
     }
-
-    public override void StartCastSpell(Spell spell)
-    {
-        if (spell is FriendlySpell)
-        {
-            if (target is Hero)
-            {
-                currentSpell = spell;
-                isCasting = true;
-            }
-            else
-            {
-                target = null;
-            }
-        }
-    }
-
 
 }
