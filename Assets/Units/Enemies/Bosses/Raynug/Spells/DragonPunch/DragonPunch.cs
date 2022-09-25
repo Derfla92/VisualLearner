@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragonPunch : Spell
+public class DragonPunch : HostileSpell
 {
     // Start is called before the first frame update
     public override void Start()
@@ -19,5 +19,17 @@ public class DragonPunch : Spell
     public override void Update()
     {
         base.Update();
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if(collider.GetComponent<Unit>())
+        {
+            collider.GetComponent<Unit>().TakeDamage(damage);
+        }
+        else if(collider.GetComponentInParent<Unit>())
+        {
+            collider.GetComponentInParent<Unit>().TakeDamage(damage);
+        }
     }
 }

@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Hero : Unit
 {
     // Start is called before the first frame update
-
-    public GameObject healthBar;
+    public List<EventAction> nextActions;
+    
     public override void Start()
     {
         base.Start();
@@ -16,13 +16,13 @@ public class Hero : Unit
     // Update is called once per frame
     public override void Update()
     {
-        healthBar.transform.parent.transform.LookAt(Camera.main.transform.position * -1);
+        nextActions = gameManager.GetComponent<EventManager>().nextEvent.eventActions;
         base.Update();
     }
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        Debug.Log(this.name + " was hit by spell");
+        //Debug.Log(this.name + " was hit by spell");
     }
 
     public override void AquireTarget()
@@ -33,18 +33,7 @@ public class Hero : Unit
         }
     }
 
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-        UpdateHealthBar();
-
-    }
-
-
-    public void UpdateHealthBar()
-    {
-        healthBar.GetComponent<RectTransform>().offsetMax = new Vector2(-1 * 124 * (1 - ((float)hitPoints / (float)maxHitPoints)), 0);
-    }
+    
 
     public override void Die()
     {

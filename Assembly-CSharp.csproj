@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\MechanicsHandler.cs" />
     <Compile Include="Assets\Units\Attacks\Spells\Friendly\Ranged\Heal\Heal.cs" />
     <Compile Include="Assets\Units\Position.cs" />
+    <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Spells\DragonPunch\AddColliders.cs" />
     <Compile Include="Assets\Units\Heroes\Healer\Healer.cs" />
     <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Attacks\BasicAttack.cs" />
     <Compile Include="Assets\Scripts\Mousehandler.cs" />
@@ -97,9 +98,11 @@
     <Compile Include="Assets\Hovl Studio\Resources\Scripts\AutoDestroyPS.cs" />
     <Compile Include="Assets\Scripts\PositionHandler.cs" />
     <Compile Include="Assets\Scripts\TimeManager.cs" />
+    <Compile Include="Assets\Units\SpellCaster.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
     <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Raynug.cs" />
-    <Compile Include="Assets\Units\Enemies\Bosses\Raynug\Spells\DragonPunch\AddColliders.cs" />
+    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
+    <Compile Include="Assets\Scripts\EventAction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Hovl Studio\AAA Projectiles Vol 1\Prefabs\Readme.txt" />
