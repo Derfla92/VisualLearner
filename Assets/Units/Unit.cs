@@ -17,11 +17,11 @@ public class Unit : MonoBehaviour
     public Role role;
     public int maxHitPoints;
     public int hitPoints;
-    public int attackDamage;
-    public float attackSpeed;
-    public float lastAttack = 0;
     public float turnSpeed;
 
+    public int attackDamage;
+    public float attackSpeed;
+    public float swingTimer;
 
     public enum Role
     {
@@ -38,11 +38,12 @@ public class Unit : MonoBehaviour
         unitHandler = GameObject.Find("UnitHandler").GetComponent<UnitHandler>();
         timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        swingTimer = attackSpeed;
     }
 
     public virtual void Awake()
     {
-
+        swingTimer = attackSpeed;
     }
 
     // Update is called once per frame
@@ -58,10 +59,10 @@ public class Unit : MonoBehaviour
             {
                 RotateTowardsTarget();
                 SpellCaster spellCaster = GetComponent<SpellCaster>();
-                
+
                 if (target.hitPoints > 0)
                 {
-                    if(spellCaster)
+                    if (spellCaster)
                     {
                         if (!spellCaster.isCasting)
                         {
@@ -79,7 +80,6 @@ public class Unit : MonoBehaviour
                     {
                         TryAttack();
                     }
-                    
                 }
                 else
                 {
@@ -87,7 +87,7 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        healthBar.transform.parent.transform.LookAt(Camera.main.transform.position * -1);
+        healthBar.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
     }
 
     public virtual void AquireTarget()
@@ -97,12 +97,16 @@ public class Unit : MonoBehaviour
 
     public virtual void TryAttack()
     {
-        if (timeManager.currentTime > lastAttack + attackSpeed)
+        if (swingTimer <= 0)
         {
             if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             {
                 Attack();
             }
+        }
+        else
+        {
+            swingTimer -= Time.deltaTime * timeManager.timeMultiplier ;
         }
     }
 
@@ -114,7 +118,7 @@ public class Unit : MonoBehaviour
 
         }
         target.TakeDamage(attackDamage);
-        lastAttack = timeManager.currentTime;
+        swingTimer = attackSpeed;
     }
 
 
@@ -159,7 +163,7 @@ public class Unit : MonoBehaviour
 
             if (transform.rotation != toRotation && GetComponent<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.name != GetComponent<MeleeAttack>().attackAnim.name)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, turnSpeed * Time.deltaTime * timeManager.timeMultiplier);
             }
         }
     }

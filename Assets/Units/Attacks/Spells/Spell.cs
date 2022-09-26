@@ -12,6 +12,7 @@ public class Spell : MonoBehaviour
     public float castTime;
     public float cooldown;
     public float cooldownTimer;
+    public bool isAnimating = false;
 
     public enum SpellType
     {
@@ -34,10 +35,14 @@ public class Spell : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if (!GetComponent<ParticleSystem>().isPlaying)
-        { 
-            Destroy(gameObject);
+        if (isAnimating)
+        {
+            if (!GetComponent<ParticleSystem>().isPlaying)
+            {
+                Destroy(gameObject);
+            }
         }
+        
     }
 
 
@@ -54,6 +59,10 @@ public class Spell : MonoBehaviour
     }
 
     public virtual void ApplySpellEffect(Unit target)
+    {
+
+    }
+    public virtual void ApplySpellEffect()
     {
 
     }

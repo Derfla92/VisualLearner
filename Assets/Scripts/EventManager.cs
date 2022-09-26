@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class EventManager : MonoBehaviour
 {
 
     public TimeManager timeManager;
+    public EventLine eventLine;
 
     public GameObject eventsContainer;
     public GameObject eventPrefab;
@@ -28,6 +31,31 @@ public class EventManager : MonoBehaviour
     void Update()
     {
         //nextEvent = uiEvents.Find(x => x.eventTime > timeManager.currentTime);
+
+        foreach(UiEvent e in uiEvents)
+        {
+            UiEvent current = e;
+            while(current.nextEvent != null)
+            {
+                if(current.eventTime > timeManager.currentTime)
+                {
+                    break;
+                }
+                current = current.nextEvent;
+            }
+            if (nextEvent != null)
+            {
+                if (current.eventTime < nextEvent.eventTime)
+                {
+                    nextEvent = current;
+                }
+            }
+            else
+            {
+                nextEvent = current;
+            }
+        }
+
         UpdateTimeLine();
     }
 
@@ -37,37 +65,39 @@ public class EventManager : MonoBehaviour
         GameObject[] bossSpells = boss.GetComponent<SpellCaster>().spells.ToArray();
         foreach (GameObject spell in bossSpells)
         {
-            UiEvent newEvent = NewRecurringEvent(spell.GetComponent<Spell>());
-            newEvent.initialized = true;
+            NewRecurringEvent(spell.GetComponent<Spell>());
         }
     }
 
     public void UpdateTimeLine()
     {
-
+        foreach (UiEvent rootEvent in uiEvents)
+        {
+            if (rootEvent.rootEvent = rootEvent)
+            {
+                int max = (int)Mathf.Floor(eventLine.timeLine.rect.width / (rootEvent.eventTime * 2));
+                int current = GetLengthOfChain(rootEvent);
+                if (current < max)
+                {
+                    NewRecurringEvent(rootEvent);
+                }
+            }
+        }
     }
 
-    //Only meant to be called when game isnt running
-    public void NewEvent()
+    public int GetLengthOfChain(UiEvent rootEvent)
     {
-        UiEvent newEvent = Instantiate(eventPrefab, eventsContainer.transform).GetComponent<UiEvent>();
-        uiEvents.Add(newEvent);
-
-        newEvent.recurringEvent = eventReccuring;
-        newEvent.eventTime = eventTime;
-        newEvent.rootEvent = newEvent;
-
-
-        newEvent.PlaceEventOnTimeline();
-
-
-        newEvent.initialized = true;
-
-        eventTime = 0;
-        eventReccuring = false;
+        int i = 1;
+        UiEvent current = rootEvent;
+        while(current.nextEvent != null)
+        {
+            current = current.nextEvent;
+            i++;
+        }
+        return i;
     }
 
-    public UiEvent NewRecurringEvent(Spell spell)
+    public void NewRecurringEvent(Spell spell)
     {
         UiEvent newEvent = Instantiate(eventPrefab, eventsContainer.transform).GetComponent<UiEvent>();
 
@@ -76,25 +106,33 @@ public class EventManager : MonoBehaviour
 
         //Set event information according to spell
         newEvent.icon.sprite = spell.icon;
-        newEvent.recurringEvent = true;
-        newEvent.eventTime = (spell.castTime + spell.cooldown) * 2;
+        newEvent.eventTime = (spell.castTime + spell.cooldown);
         newEvent.rootEvent = newEvent;
         newEvent.glow.SetActive(true);
 
-        //Position Event
-        newEvent.PlaceEventOnTimeline();
+        //Position Event on timeline
+        RectTransform rectTransform = newEvent.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(newEvent.eventTime * 2,0);
 
-        return newEvent;
     }
 
-    public UiEvent NewRecurringEvent(float time)
+    public void NewRecurringEvent(UiEvent rootEvent)
     {
-        UiEvent newEvent = Instantiate(eventPrefab, eventsContainer.transform).GetComponent<UiEvent>();
+        UiEvent current = rootEvent;
+        while (current.nextEvent != null)
+        {
+            current = current.nextEvent;
+        }
 
-        uiEvents.Add(newEvent);
-        newEvent.recurringEvent = true;
-        newEvent.eventTime = time;
-        newEvent.PlaceEventOnTimeline();
-        return newEvent;
+        UiEvent newEvent = Instantiate(rootEvent, eventsContainer.transform).GetComponent<UiEvent>();
+        current.nextEvent = newEvent;
+        newEvent.rootEvent = rootEvent;
+        newEvent.nextEvent = null;
+        newEvent.eventTime = current.eventTime + rootEvent.eventTime;
+        newEvent.glow.SetActive(true);
+        RectTransform rectTransform = newEvent.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(newEvent.eventTime * 2, 0);
+
+
     }
 }

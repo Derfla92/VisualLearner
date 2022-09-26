@@ -24,25 +24,4 @@ public class Raynug : Boss
         }
         base.Update();
     }
-
-    public override void Attack()
-    {
-        base.Attack();
-    }
-
-
-    public override void TryAttack()
-    {
-        if (timeManager.currentTime > lastAttack + attackSpeed)
-        {
-            if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-            {
-                Attack();
-            }
-        }
-    }
-
-
-
-
 }

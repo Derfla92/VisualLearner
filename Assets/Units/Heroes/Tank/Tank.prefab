@@ -73,7 +73,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4380762283314917352
@@ -1158,10 +1158,11 @@ MonoBehaviour:
   role: 0
   maxHitPoints: 400
   hitPoints: 400
+  turnSpeed: 1.5
   attackDamage: 5
   attackSpeed: 2.3
-  lastAttack: 0
-  turnSpeed: 1.5
+  swingTimer: 0
+  nextActions: []
 --- !u!114 &2083766704510394430
 MonoBehaviour:
   m_ObjectHideFlags: 0

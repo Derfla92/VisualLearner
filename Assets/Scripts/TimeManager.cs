@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TimeManager : MonoBehaviour
 {
     public Text timer;
+    public Text speedupText;
 
     public GameObject BtnStart;
     public GameObject BtnStop;
@@ -52,6 +53,14 @@ public class TimeManager : MonoBehaviour
         run = false;
         BtnStart.SetActive(true);
         BtnStop.SetActive(false);
+        timeMultiplier = 1;
+        Animator[] animators = GameObject.FindObjectsOfType<Animator>();
+        foreach (Animator animator in animators)
+        {
+            animator.speed = timeMultiplier;
+        }
+        speedupText.text = "x" + timeMultiplier.ToString();
+
     }
 
     public void SpeedUp()
@@ -59,6 +68,12 @@ public class TimeManager : MonoBehaviour
         if (timeMultiplier < 5 && timeMultiplier >= 1)
         {
             timeMultiplier += 1;
+            Animator[] animators = GameObject.FindObjectsOfType<Animator>();
+            foreach(Animator animator in animators)
+            {
+                animator.speed = timeMultiplier;
+            }
+            speedupText.text = "x"+timeMultiplier.ToString();
         }
     }
     public void SpeedDown()
@@ -66,6 +81,12 @@ public class TimeManager : MonoBehaviour
         if (timeMultiplier <= 5 && timeMultiplier > 1)
         {
             timeMultiplier -= 1;
+            Animator[] animators = GameObject.FindObjectsOfType<Animator>();
+            foreach (Animator animator in animators)
+            {
+                animator.speed = timeMultiplier;
+            }
+            speedupText.text = "x" + timeMultiplier.ToString();
         }
     }
 }

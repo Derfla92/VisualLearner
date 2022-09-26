@@ -19,31 +19,29 @@ public class Boss : Enemy
     // Update is called once per frame
     public override void Update()
     {
-            base.Update();
-        
-        
+        base.Update();
+
+
     }
 
-   
+
 
     public override void Attack()
     {
-        if (timeManager.currentTime > lastAttack + attackSpeed)
+        Animator animator = GetComponent<Animator>();
+
+        animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
+
+        target.GetComponent<Hero>().TakeDamage(attackDamage);
+        if (target.hitPoints < 0)
         {
-            Animator animator = GetComponent<Animator>();
-
-            animator.Play(GetComponent<MeleeAttack>().attackAnim.name);
-
-            target.GetComponent<Hero>().TakeDamage(attackDamage);
-            lastAttack = timeManager.currentTime;
-            if (target.hitPoints < 0)
-            {
-                target = null;
-            }
+            target = null;
         }
+        swingTimer = attackSpeed;
+
     }
 
-    
+
 
     public override void Die()
     {

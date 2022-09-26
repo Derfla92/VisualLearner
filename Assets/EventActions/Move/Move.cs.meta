@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 66cdccd7551b0284caf1c3700d5c82c5
+guid: 2a0214f7cf5d9394bb04eed7479a425c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - m_EventManagerEditor_UXML: {fileID: 9197481963319205126, guid: 8be01908e0d431543b717b797c9d7a3d, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

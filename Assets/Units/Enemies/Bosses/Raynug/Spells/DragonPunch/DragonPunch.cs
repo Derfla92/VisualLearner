@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DragonPunch : HostileSpell
 {
+
+    public List<Unit> heroesInArea;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -12,6 +15,7 @@ public class DragonPunch : HostileSpell
 
     public override void Awake()
     {
+        heroesInArea = new List<Unit>();
         base.Awake();
     }
 
@@ -23,13 +27,38 @@ public class DragonPunch : HostileSpell
 
     void OnTriggerEnter(Collider collider)
     {
-        if(collider.GetComponent<Unit>())
+        if (collider.GetComponent<Hero>())
         {
-            collider.GetComponent<Unit>().TakeDamage(damage);
+            heroesInArea.Add(collider.GetComponent<Hero>());
         }
-        else if(collider.GetComponentInParent<Unit>())
+        else if(collider.GetComponentInParent<Hero>())
         {
-            collider.GetComponentInParent<Unit>().TakeDamage(damage);
+            heroesInArea.Add(collider.GetComponentInParent<Hero>());
         }
+    }
+
+    private void OnTriggerExit(Collider collider)
+    {
+        if (collider.GetComponent<Hero>())
+        {
+            heroesInArea.Remove(collider.GetComponent<Hero>());
+        }
+        else if (collider.GetComponentInParent<Hero>())
+        {
+            heroesInArea.Remove(collider.GetComponentInParent<Hero>());
+        }
+    }
+
+    public override void ApplySpellEffect()
+    {
+        foreach (Hero hero in heroesInArea)
+        {
+            hero.TakeDamage(damage);
+        }
+    }
+
+    public override void ApplySpellEffect(Unit target)
+    {
+        ApplySpellEffect();
     }
 }

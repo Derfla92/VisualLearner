@@ -64,6 +64,7 @@ public class Healer : Hero
                 }
             }
         }
+        healthBar.GetComponentInParent<Canvas>().transform.LookAt(Camera.main.transform.position);
     }
 
     public override void AquireTarget()

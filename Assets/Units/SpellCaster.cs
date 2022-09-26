@@ -14,9 +14,18 @@ public class SpellCaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        foreach (GameObject spell in spells)
+        {
+            spell.GetComponent<Spell>().cooldownTimer = spell.GetComponent<Spell>().cooldown;
+        }
     }
-
+    private void Awake()
+    {
+        foreach (GameObject spell in spells)
+        {
+            spell.GetComponent<Spell>().cooldownTimer = spell.GetComponent<Spell>().cooldown;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -24,21 +33,21 @@ public class SpellCaster : MonoBehaviour
     }
     public bool TryCastSpell()
     {
-        if (!isCasting)
+        foreach (GameObject spell in spells)
         {
-            foreach (GameObject spell in spells)
+            Spell spellInfo = spell.GetComponent<Spell>();
+            if (spellInfo.cooldownTimer <= 0)
             {
-                Spell spellInfo = spell.GetComponent<Spell>();
-                if (spellInfo.cooldownTimer <= 0)
+                if (!isCasting)
                 {
 
                     StartCastSpell(spell);
                     return true;
                 }
-                else
-                {
-                    spellInfo.cooldownTimer -= Time.deltaTime;
-                }
+            }
+            else
+            {
+                spellInfo.cooldownTimer -= Time.deltaTime * GameObject.FindObjectOfType<TimeManager>().timeMultiplier;
             }
         }
         return false;
@@ -46,7 +55,18 @@ public class SpellCaster : MonoBehaviour
 
     public void StartCastSpell(GameObject spell)
     {
-        currentSpell = spell;
+        currentSpell = Instantiate(spell);
+        currentSpell.GetComponent<ParticleSystem>().Stop(true);
+        Spell spellInfo = spell.GetComponent<Spell>();
+        if (spellInfo.spellType == SpellType.Projectile)
+        {
+            currentSpell.GetComponent<Spell>().AimSpell(transform.position, transform.forward);
+
+        }
+        else if (spellInfo.spellType == SpellType.Direct)
+        {
+            currentSpell.GetComponent<Spell>().AimSpell(GetComponent<Unit>().target.transform.position);
+        }
         isCasting = true;
     }
 
@@ -60,31 +80,23 @@ public class SpellCaster : MonoBehaviour
         }
         else
         {
-            castTimer += Time.deltaTime;
+            castTimer += Time.deltaTime * GameObject.FindObjectOfType<TimeManager>().timeMultiplier;
         }
     }
 
     public void CastSpell(GameObject spell)
     {
         Animator animator = GetComponent<Animator>();
+        animator.Play(spell.name);
+        currentSpell.GetComponent<ParticleSystem>().Play(true);
+        currentSpell.GetComponent<Spell>().isAnimating = true;
 
-            animator.Play(spell.name);
-
-            GameObject newSpell = Instantiate(spell);
-            Spell spellInfo = spell.GetComponent<Spell>();
-            spellInfo.cooldownTimer = spellInfo.cooldown;
-            if (spellInfo.spellType == SpellType.Projectile)
-            {
-                newSpell.GetComponent<Spell>().AimSpell(transform.position, transform.forward);
-
-            }
-            else if (spellInfo.spellType == SpellType.Direct)
-            {
-                newSpell.GetComponent<Spell>().AimSpell(GetComponent<Unit>().target.transform.position);
-            }
-            newSpell.GetComponent<Spell>().ApplySpellEffect(GetComponent<Unit>().target);
-            GetComponent<Unit>().target = null;
+        Spell spellInfo = spells[0].GetComponent<Spell>();
+        spellInfo.cooldownTimer = spellInfo.cooldown;
         
+        currentSpell.GetComponent<Spell>().ApplySpellEffect(GetComponent<Unit>().target);
+        GetComponent<Unit>().target = null;
+
 
 
     }

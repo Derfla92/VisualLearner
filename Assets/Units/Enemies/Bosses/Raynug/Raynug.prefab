@@ -1298,10 +1298,10 @@ MonoBehaviour:
   role: 3
   maxHitPoints: 10000
   hitPoints: 10000
+  turnSpeed: 2.4
   attackDamage: 100
   attackSpeed: 2.5
-  lastAttack: 0
-  turnSpeed: 2.4
+  swingTimer: 0
 --- !u!114 &2411104666340640035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4288,7 +4288,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8174676855054832706

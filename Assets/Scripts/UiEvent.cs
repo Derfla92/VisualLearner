@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +42,7 @@ public class UiEvent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        /*
         if (initialized)
         {
             if (recurringEvent)
@@ -53,7 +54,7 @@ public class UiEvent : MonoBehaviour
                     {
                         if (timeline.rect.width > rootEvent.eventTime)
                         {
-                            UiEvent newEvent = GameObject.Find("GameManager").GetComponent<EventManager>().NewRecurringEvent(eventTime*2);
+                            UiEvent newEvent = GameObject.Find("GameManager").GetComponent<EventManager>().NewRecurringEvent(eventTime * 2);
                             newEvent.rootEvent = rootEvent;
                             newEvent.previousEvent = this;
                             newEvent.icon.sprite = rootEvent.icon.sprite;
@@ -82,88 +83,79 @@ public class UiEvent : MonoBehaviour
 
                 }
             }
-            if(eventTime < timeManager.currentTime)
-            {
-                pointyThing.GetComponent<Image>().color = Color.red;
-                background.GetComponent<Image>().color = Color.red;
-            }
         }
-
-    }
-
-
-    public void PlaceEventOnTimeline()
-    {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        if (previousEvent != null)
+        */
+        if (eventTime < timeManager.currentTime)
         {
-            rectTransform.anchoredPosition = new Vector2(previousEvent.eventTime + rootEvent.eventTime, rectTransform.anchoredPosition.y);
-            eventTime = previousEvent.eventTime + rootEvent.eventTime;
+            pointyThing.GetComponent<Image>().color = Color.red;
+            background.GetComponent<Image>().color = Color.red;
         }
-        else rectTransform.anchoredPosition = new Vector2(eventTime, rectTransform.anchoredPosition.y);
+
     }
-    
-    public void AddAction(EventAction newAction)
+
+    public void AddAction(EventAction action)
     {
+        EventAction newAction = Instantiate(action, actionsContainer.transform);
+        newAction.deleteButton.SetActive(true);
+        newAction.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleLeft;
+        newAction.id = action.id;
         eventActions.Add(newAction);
-        int numberOfActionsStored = eventActions.Count;
-        actionsContainer.GetComponent<RectTransform>().offsetMax = new Vector2(30, 6+32 * numberOfActionsStored);
+        actionsContainer.GetComponent<RectTransform>().offsetMax = new Vector2(30, 6 + 32 * eventActions.Count);
         actionsContainer.GetComponent<RectTransform>().offsetMin = new Vector2(-30, 6);
-        newAction.transform.SetParent(actionsContainer.transform);
         RectTransform rectTransform = newAction.GetComponent<RectTransform>();
         rectTransform.anchorMin = new Vector2(0.5f, 0);
         rectTransform.anchorMax = new Vector2(0.5f, 0);
-        rectTransform.offsetMax = new Vector2(30, 32 * numberOfActionsStored);
-        rectTransform.offsetMin = new Vector2(-30, 0 + 32 *(numberOfActionsStored-1));
-        
+        rectTransform.offsetMax = new Vector2(30, 32 * eventActions.Count);
+        rectTransform.offsetMin = new Vector2(-30, 32 * (eventActions.Count - 1));
+
         if (rootEvent == this && nextEvent != null)
         {
-                PropagateActions(newAction);
+            PropagateActions(newAction);
         }
 
     }
 
-    public void PropagateActions(EventAction newAction)
+
+    public void PropagateActions(EventAction action)
     {
-        if(nextEvent != null)
+        if (nextEvent != null)
         {
-            EventAction action = Instantiate(newAction);
 
             nextEvent.AddAction(action);
 
-            nextEvent.PropagateActions(newAction);
+            nextEvent.PropagateActions(action);
         }
-        
+
     }
 
     public void RemoveAction(EventAction delAction)
     {
-        List<EventAction> delActions = eventActions.FindAll(x => x.id == delAction.id);
-        eventActions.RemoveAll(x => x.id == delAction.id);
-        List<EventAction> newActionList = new List<EventAction>();
-        foreach (EventAction action in eventActions)
-        {
-            newActionList.Add(action);
-        }
-        actionsContainer.GetComponent<RectTransform>().offsetMax = new Vector2(30, 6);
-        actionsContainer.GetComponent<RectTransform>().offsetMin = new Vector2(-30, 6);
-        foreach (EventAction action in newActionList)
-        {
-            AddAction(action);
-        }
         if (rootEvent == this && nextEvent != null)
         {
             PropagateRemove(delAction);
         }
-        foreach (EventAction action in delActions)
+        List<EventAction> removeActions = eventActions.FindAll(x => x.id == delAction.id);
+        eventActions.RemoveAll(x => x.id == delAction.id);
+        foreach (EventAction action in removeActions)
         {
             Destroy(action.gameObject);
         }
+        List<EventAction> newList = eventActions.ToList();
+        eventActions.Clear();
+        foreach (EventAction action in newList)
+        {
+            eventActions.Add(action);
+            RectTransform rectTransform = action.GetComponent<RectTransform>();
+            rectTransform.offsetMax = new Vector2(30, 32 * eventActions.Count);
+            rectTransform.offsetMin = new Vector2(-30, 32 * (eventActions.Count - 1));
+        }
+        actionsContainer.GetComponent<RectTransform>().offsetMax = new Vector2(30, 6 + 32 * eventActions.Count);
+        actionsContainer.GetComponent<RectTransform>().offsetMin = new Vector2(-30, 6);
     }
 
     public void PropagateRemove(EventAction delAction)
     {
-        if(nextEvent != null)
+        if (nextEvent != null)
         {
 
             nextEvent.RemoveAction(delAction);

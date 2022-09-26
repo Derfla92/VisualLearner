@@ -48892,8 +48892,10 @@ MonoBehaviour:
   spellType: 0
   castTime: 2
   cooldown: 30
-  cooldownTimer: 0
+  cooldownTimer: 8.4117565
+  isAnimating: 0
   damage: 60
+  heroesInArea: []
 --- !u!65 &2631313756985079904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -48905,8 +48907,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.52, y: 2.2880197, z: 9.093967}
-  m_Center: {x: 0, y: 0.51, z: 3.39}
+  m_Size: {x: 2.52, y: 2.2880197, z: 25.83846}
+  m_Center: {x: 0, y: 0.51, z: 11.762246}
 --- !u!1 &1931102524043194
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +10,14 @@ using UnityEngine.UIElements;
 public class DragAndDrop : MonoBehaviour
 {
 
-    public List<EventAction> actions = new List<EventAction>();
-    public GameObject selectedItem;
+    public List<EventAction> actions;
     public EventManager eventManager;
     private GameObject heldItem;
-    private int currentIdNumber = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        actions = GetComponentsInChildren<EventAction>().ToList();
     }
 
     // Update is called once per frame
@@ -33,14 +32,28 @@ public class DragAndDrop : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-
-                if (RectTransformUtility.RectangleContainsScreenPoint(actions[0].GetComponent<RectTransform>(), Input.mousePosition))
+                foreach (EventAction action in actions)
                 {
-                    heldItem = Instantiate(actions[0].gameObject,GetComponentInParent<Canvas>().transform);
-                    heldItem.GetComponent<EventAction>().id = currentIdNumber++;
-                    heldItem.GetComponent<EventAction>().deleteButton.SetActive(true);
-                    heldItem.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleLeft;
-                    Debug.Log("Click");
+
+
+                    if (RectTransformUtility.RectangleContainsScreenPoint(action.GetComponent<RectTransform>(), Input.mousePosition))
+                    {
+                        heldItem = Instantiate(action.gameObject, GetComponentInParent<Canvas>().transform);
+                        RectTransform rectTransform = heldItem.GetComponent<RectTransform>();
+
+                        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                        rectTransform.offsetMax = new Vector2(60, 40);
+                        rectTransform.offsetMin = new Vector2(0, 0);
+
+                        rectTransform = rectTransform.GetComponentInChildren<Text>().GetComponent<RectTransform>();
+                        rectTransform.anchorMin = new Vector2(0, 0);
+                        rectTransform.anchorMax = new Vector2(1, 1);
+                        rectTransform.offsetMax = new Vector2(0, 0);
+                        rectTransform.offsetMin = new Vector2(0, 0);
+                        break;
+
+                    }
                 }
             }
         }
@@ -53,27 +66,35 @@ public class DragAndDrop : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 UiEvent[] uiEvents = eventManager.uiEvents.ToArray();
-                bool destroy = true;
 
                 foreach (UiEvent uiEvent in uiEvents)
                 {
-                    if (RectTransformUtility.RectangleContainsScreenPoint(uiEvent.GetComponent<RectTransform>(), Input.mousePosition))
+                    if(FindDropInEventChain(uiEvent))
                     {
-
-                        uiEvent.AddAction(heldItem.GetComponent<EventAction>());
-                        
-                        Debug.Log("Drop action");
-                        destroy = false;
                         break;
                     }
+                    
                 }
 
-                if (destroy)
-                {
-                    Destroy(heldItem);
-                }
+                Destroy(heldItem);
                 heldItem = null;
             }
         }
+    }
+
+    private bool FindDropInEventChain(UiEvent rootEvent)
+    {
+        UiEvent current = rootEvent;
+        while (current.nextEvent != null)
+        {
+            if (RectTransformUtility.RectangleContainsScreenPoint(current.GetComponent<RectTransform>(), Input.mousePosition))
+            {
+
+                current.AddAction(heldItem.GetComponent<EventAction>());
+                return true;
+            }
+            current = current.nextEvent;
+        }
+        return false;
     }
 }
